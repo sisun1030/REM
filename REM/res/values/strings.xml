@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">REM</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="movement">Track Motion</string>
+    <string name="bpm">Track Heartrate</string>
+    <string name="rem_alarm">Smart Alarm</string>
+    <string name="btn_display">Display</string>
+
+</resources>
