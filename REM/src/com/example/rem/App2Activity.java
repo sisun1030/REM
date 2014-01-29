@@ -15,17 +15,13 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import android.view.View.OnClickListener;
 
-
 public class App2Activity extends Activity implements OnClickListener  {
  	
-	String button1;
-	String button2;
-	String button3;
 	static PendingIntent pendingIntent;
 	static AlarmManager alarmManager;	
-	Button btnStopAlarm;
-	Long alarm_long;
-	String alarm;
+	private Button btnStopAlarm;
+	static int hour, minute, am_pm;
+	static String smartAlarm, bpm, motion;
  
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,37 +29,27 @@ public class App2Activity extends Activity implements OnClickListener  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main2);
 		
+		System.out.println("Got here");
+		
 		btnStopAlarm=(Button)findViewById(R.id.button1);		
 		btnStopAlarm.setOnClickListener(this);
 		
-		Bundle b = getIntent().getExtras();
-		alarm = b.getString("ringAlarm").toString();
+		Intent mIntent = getIntent();
+		hour = mIntent.getIntExtra("hour", 0);
+		minute = mIntent.getIntExtra("minute", 0);
 	    TextView textView2 = (TextView) findViewById(R.id.textView2);
-	    textView2.setText("Alarm set to: " + alarm);
+	    textView2.setText("Alarm is set to: " + new StringBuilder().append(pad(hour)).append(":").append(pad(minute)));
 	    
-	    button1 = b.getString("button1");
-	    button2 = b.getString("button2");
-	    button3 = b.getString("button3");
+	    smartAlarm = mIntent.getStringExtra("smart_alarm");
+	    bpm = mIntent.getStringExtra("bpm");
+	    motion = mIntent.getStringExtra("motion");
 	    
 	    StringBuffer result = new StringBuffer();
-		result.append("Smart Alarm : ").append(button1);
-		result.append("\nHear Rate : ").append(button2);
-		result.append("\nMotion :").append(button3);
- 
+		result.append("Smart Alarm : ").append(smartAlarm);
+		result.append("\nHear Rate : ").append(bpm);
+		result.append("\nMotion :").append(motion);
 		Toast.makeText(App2Activity.this, result.toString(), Toast.LENGTH_LONG).show();
-		
-		//Changing the alarm variable from string to Date
-		SimpleDateFormat formatter = new SimpleDateFormat("EE MMM dd HH:mm:ss zzz yyyy");	 
-		try {	 
-			Date date_test = formatter.parse(alarm);
-			System.out.println(date_test);
-			alarm_long = date_test.getTime();
-			System.out.println(alarm_long);
-		}
-		catch (ParseException e) {
-			e.printStackTrace();
-		}
-
+	    
 	}
 	
 	
@@ -73,9 +59,18 @@ public class App2Activity extends Activity implements OnClickListener  {
 		if(v==btnStopAlarm){
 			System.out.println("Ringing alarm");
 			Intent intent = new Intent(context, FinalPage.class);
-		    intent.putExtra("alarm", alarm);
+		    intent.putExtra("alarm", hour);
             startActivity(intent);  
 		}
 	}
+	
+	
+	private static String pad(int c) {
+		if (c >= 10)
+		   return String.valueOf(c);
+		else
+		   return "0" + String.valueOf(c);
+	}
+	
 	
 }

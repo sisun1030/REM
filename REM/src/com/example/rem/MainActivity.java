@@ -1,153 +1,146 @@
 package com.example.rem;
 
+import java.util.Calendar;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.app.TimePickerDialog.OnTimeSetListener;
-import java.util.Calendar;
+import android.content.Intent;
+import android.content.Context;
 import android.widget.CheckBox;
-import android.widget.Toast;
+
  
 public class MainActivity extends Activity {
  
-	
-	Button button;
-	TimePicker myTimePicker;
-	Button buttonstartSetDialog;	
-	String prompt;
-	TextView textAlarmPrompt;
-	TimePickerDialog timePickerDialog;
-	final static int RQS_1 = 1;
+	private TextView tvDisplayTime;
+	private TimePicker timePicker1;
+	private Button btnChangeTime, btnStartAlarm;
 	private CheckBox smartAlarm, heartRate, motion;
-	String button1; String button2; String button3;
-	
-	
+	private int hour, minute, am_pm;
+	private String bpm_check, motion_check, smart_check;
+ 
+	static final int TIME_DIALOG_ID = 999;
+ 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		 
-	    textAlarmPrompt = (TextView)findViewById(R.id.alarmprompt);
-	    addListenerOnChkIos();
-	    addListenerOnButton();
-	}
-	
-	
-	public void addListenerOnChkIos() {
-		smartAlarm = (CheckBox) findViewById(R.id.smartalarm);
-		smartAlarm.setOnClickListener(new OnClickListener() {
-	 
-			@Override
-			public void onClick(View v) {
-				if (((CheckBox) v).isChecked()) {
-					Toast.makeText(MainActivity.this, "We will wake you up at an optimal time BRO!", Toast.LENGTH_LONG).show();
-				}
-	 
-			}
-		});
-	}
-	
  
+		setCurrentTimeOnView();
+		addListenerOnButton();
+ 
+	}
+ 
+	
+	// display current time
+	public void setCurrentTimeOnView() {
+ 
+		tvDisplayTime = (TextView) findViewById(R.id.tvTime);
+		timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
+ 
+		final Calendar c = Calendar.getInstance();
+		hour = c.get(Calendar.HOUR_OF_DAY);
+		minute = c.get(Calendar.MINUTE);
+		am_pm = c.get(Calendar.AM_PM);
+ 
+		// set current time into textview
+		tvDisplayTime.setText(
+                    new StringBuilder().append(pad(hour))
+                                       .append(":").append(pad(minute)));
+ 
+		// set current time into timepicker
+		timePicker1.setCurrentHour(hour);
+		timePicker1.setCurrentMinute(minute);
+ 
+	}
+ 
+	
 	public void addListenerOnButton() {
- 
+		
 		final Context context = this;
 		smartAlarm = (CheckBox) findViewById(R.id.smartalarm);
 		heartRate = (CheckBox) findViewById(R.id.heartrate);
 		motion = (CheckBox) findViewById(R.id.motion);
 				
 		Boolean a = smartAlarm.isChecked();
-		button1 = a.toString();
+		smart_check = a.toString();
 		Boolean b = heartRate.isChecked();
-		button2 = b.toString();
+		bpm_check = b.toString();
 		Boolean c = motion.isChecked();
-		button3 = c.toString();
-		
-		button = (Button) findViewById(R.id.button1);
-		button.setOnClickListener(new OnClickListener() {
+		motion_check = c.toString();
+ 
+		btnChangeTime = (Button) findViewById(R.id.btnChangeTime);
+		btnChangeTime.setOnClickListener(new OnClickListener() {
  
 			@Override
-			public void onClick(View arg0) {
-			    Intent intent = new Intent(context, App2Activity.class);
-			    intent.putExtra("ringAlarm", prompt);
-			    intent.putExtra("button1", button1);
-			    intent.putExtra("button2", button2);
-			    intent.putExtra("button3", button3);
-                startActivity(intent);   
+			public void onClick(View v) {
+				showDialog(TIME_DIALOG_ID);
 			}
 		});
 		
-		buttonstartSetDialog = (Button)findViewById(R.id.startSetDialog);
-        buttonstartSetDialog.setOnClickListener(new OnClickListener(){
-        	
-        	@Override
-			public void onClick(View arg0) {
-        		textAlarmPrompt.setText("");
-        	    openTimePickerDialog(false);  
-			}
+		btnStartAlarm = (Button) findViewById(R.id.btnStart);
+		btnStartAlarm.setOnClickListener(new OnClickListener() {
  
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, App2Activity.class);
+			    intent.putExtra("hour", hour);
+			    intent.putExtra("minute", minute);
+			    intent.putExtra("am_pm", am_pm);
+
+			    intent.putExtra("smart_alarm", smart_check);
+			    intent.putExtra("bpm", bpm_check);
+			    intent.putExtra("motion", motion_check);
+                startActivity(intent); 
+			}
 		});
  
 	}
+ 
 	
-	
-	private void openTimePickerDialog(boolean is24r){
-		Calendar calendar = Calendar.getInstance();
-		  
-		timePickerDialog = new TimePickerDialog(
-			MainActivity.this, 
-		    onTimeSetListener, 
-		    calendar.get(Calendar.HOUR_OF_DAY), 
-		    calendar.get(Calendar.MINUTE), 
-		    is24r);
-		timePickerDialog.setTitle("Set Alarm Time");  
-		timePickerDialog.show();
-	}
-	
-	
-	OnTimeSetListener onTimeSetListener= new OnTimeSetListener(){
-		@Override
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-			Calendar calNow = Calendar.getInstance();
-			Calendar calSet = (Calendar) calNow.clone();
-
-			calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
-			calSet.set(Calendar.MINUTE, minute);
-			calSet.set(Calendar.SECOND, 0);
-			calSet.set(Calendar.MILLISECOND, 0);
-   
-			if(calSet.compareTo(calNow) <= 0){
-				calSet.add(Calendar.DATE, 1);
-			}
-   
-			setAlarm(calSet);
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case TIME_DIALOG_ID:
+			// set time picker as current time
+			return new TimePickerDialog(this, 
+                                        timePickerListener, hour, minute,false);
+ 
 		}
-	};
-
-
-	private void setAlarm(Calendar targetCal){
-		prompt = targetCal.getTime().toString();
-
-		textAlarmPrompt.setText(
-		    "\n\n***\n"
-		    + "Alarm is set@ " + prompt + "\n"
-		    + "***\n");
-  
-		Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), RQS_1, intent, 0);
-		AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-		alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
-  
+		return null;
 	}
  
+	
+	private TimePickerDialog.OnTimeSetListener timePickerListener = 
+            new TimePickerDialog.OnTimeSetListener() {
+		public void onTimeSet(TimePicker view, int selectedHour,
+				int selectedMinute) {
+			hour = selectedHour;
+			minute = selectedMinute;
+ 
+			// set current time into textview
+			tvDisplayTime.setText(new StringBuilder().append(pad(hour))
+					.append(":").append(pad(minute)));
+ 
+			// set current time into timepicker
+			timePicker1.setCurrentHour(hour);
+			timePicker1.setCurrentMinute(minute);
+ 
+		}
+	};
+ 
+	
+	private static String pad(int c) {
+		if (c >= 10)
+		   return String.valueOf(c);
+		else
+		   return "0" + String.valueOf(c);
+	}
+	
 	
 }

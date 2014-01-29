@@ -13,8 +13,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
+        <!-- Splash Screen -->
         <activity
-            android:name="com.example.rem.MainActivity"
+            android:name="com.example.rem.SplashScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- Main activity -->
+        <activity
+            android:name="com.example.rem.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
         <activity
             android:label="@string/app_name"
             android:name="com.example.rem.App2Activity" >

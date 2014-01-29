@@ -3,14 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp" >
+    android:paddingRight="16dp" 
+    android:background="@drawable/sleeping" >
     
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="46dp"
-        android:text="--"
-        android:layout_below="@id/textView1"
+        android:text="Wake Up Time"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -20,6 +20,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="50dp"
-        android:text="Wake Up (Test Button)" />
+        android:text="Wake Up Trigger" />
     
 </RelativeLayout>
