@@ -13,13 +13,14 @@ import android.widget.TimePicker;
 import android.content.Intent;
 import android.content.Context;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 
  
 public class MainActivity extends Activity {
  
 	private TextView tvDisplayTime;
 	private TimePicker timePicker1;
-	private Button btnChangeTime, btnStartAlarm;
+	private ImageButton btnChangeTime, btnStartAlarm;
 	private CheckBox smartAlarm, heartRate, motion;
 	private int hour, minute, am_pm;
 	private String bpm_check, motion_check, smart_check;
@@ -74,7 +75,7 @@ public class MainActivity extends Activity {
 		Boolean c = motion.isChecked();
 		motion_check = c.toString();
  
-		btnChangeTime = (Button) findViewById(R.id.btnChangeTime);
+		btnChangeTime = (ImageButton) findViewById(R.id.btnChangeTime);
 		btnChangeTime.setOnClickListener(new OnClickListener() {
  
 			@Override
@@ -83,7 +84,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		btnStartAlarm = (Button) findViewById(R.id.btnStart);
+		btnStartAlarm = (ImageButton) findViewById(R.id.btnStart);
 		btnStartAlarm.setOnClickListener(new OnClickListener() {
  
 			@Override

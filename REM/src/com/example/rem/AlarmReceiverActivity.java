@@ -3,6 +3,7 @@ package com.example.rem;
 import java.io.IOException;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,13 +32,60 @@ public class AlarmReceiverActivity extends Activity {
         stopAlarm.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 mMediaPlayer.stop();
-                finish();
+                View b = findViewById(R.id.stopAlarm);
+                b.setVisibility(View.GONE);
+                
+                View smile = findViewById(R.id.smile);
+                smile.setVisibility(View.VISIBLE);
+                View neutral = findViewById(R.id.neutral);
+                neutral.setVisibility(View.VISIBLE);
+                View sad = findViewById(R.id.sad);
+                sad.setVisibility(View.VISIBLE);
+                //finish();
                 return false;
             }
         });
+        
+        //Clicked smiley face bitches:
+        Button smile = (Button) findViewById(R.id.smile);
+        smile.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View v) {
+				System.out.println("User selected they were feeling happy");
+				Intent i = new Intent(AlarmReceiverActivity.this, MainActivity.class);
+                startActivity(i);
+			}
+		});
+        
+        //Clicked neutral face bitches:
+        Button neutral = (Button) findViewById(R.id.neutral);
+        neutral.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View v) {
+				System.out.println("User selected they were feeling meh");
+				Intent i = new Intent(AlarmReceiverActivity.this, MainActivity.class);
+                startActivity(i);
+			}
+		});
+        
+        //Clicked sad face bitches:
+        Button sad = (Button) findViewById(R.id.sad);
+        sad.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View v) {
+				System.out.println("User selected they were frowning");
+				Intent i = new Intent(AlarmReceiverActivity.this, MainActivity.class);
+                startActivity(i);
+			}
+		});
+        
 
         playSound(this, getAlarmUri());
     }
+    
 
     private void playSound(Context context, Uri alert) {
         mMediaPlayer = new MediaPlayer();
@@ -54,6 +103,7 @@ public class AlarmReceiverActivity extends Activity {
         }
     }
 
+    
     //Get an alarm sound. Try for an alarm. If none set, try notification, 
     //Otherwise, ringtone.
     private Uri getAlarmUri() {
@@ -69,4 +119,6 @@ public class AlarmReceiverActivity extends Activity {
         }
         return alert;
     }
+    
+    
 }

@@ -15,11 +15,11 @@ public class FinalPage extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
             this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-       setContentView(R.layout.main3);
+        setContentView(R.layout.main3);
 
         //Create an offset from the current time in which the alarm will go off.
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND, 5);
+        cal.add(Calendar.SECOND, 0);
 
         //Create a new PendingIntent and add it to the AlarmManager
         Intent intent = new Intent(this, AlarmReceiverActivity.class);

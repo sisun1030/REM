@@ -5,11 +5,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
  
-    <Button
+    <ImageButton
         android:id="@+id/btnChangeTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Time" 
+        android:src="@drawable/change_time"
         android:layout_gravity="center_horizontal" />
     
     <TimePicker 
@@ -34,11 +34,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge" 
         android:layout_gravity="center_horizontal" />
     
-    <Button
+    <ImageButton
         android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Going to Sleep!" 
+        android:src="@drawable/start_sleep"
         android:layout_gravity="center_horizontal" />
     
     <CheckBox
