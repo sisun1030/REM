@@ -8,5 +8,7 @@
     <string name="bpm">Track Heartrate</string>
     <string name="rem_alarm">Smart Alarm</string>
     <string name="btn_display">Display</string>
+    <string name="alarm_hello">The alarm will start in five seconds.</string>
+    <string name="stop_alarm">Stop Alarm</string>
 
 </resources>

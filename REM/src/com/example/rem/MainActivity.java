@@ -19,6 +19,7 @@ import android.widget.Toast;
  
 public class MainActivity extends Activity {
  
+	
 	Button button;
 	TimePicker myTimePicker;
 	Button buttonstartSetDialog;	
@@ -28,7 +29,7 @@ public class MainActivity extends Activity {
 	final static int RQS_1 = 1;
 	private CheckBox smartAlarm, heartRate, motion;
 	String button1; String button2; String button3;
- 
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
