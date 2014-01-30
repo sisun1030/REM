@@ -80,7 +80,7 @@ public class BluetoothSerialService {
         mState = state;
 
         // Give the new state to the Handler so the UI Activity can update
-        mHandler.obtainMessage(BlueTerm.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
+        mHandler.obtainMessage(MainActivity.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
 
     /**
@@ -156,9 +156,9 @@ public class BluetoothSerialService {
         mConnectedThread.start();
 
         // Send the name of the connected device back to the UI Activity
-        Message msg = mHandler.obtainMessage(BlueTerm.MESSAGE_DEVICE_NAME);
+        Message msg = mHandler.obtainMessage(MainActivity.MESSAGE_DEVICE_NAME);
         Bundle bundle = new Bundle();
-        bundle.putString(BlueTerm.DEVICE_NAME, device.getName());
+        bundle.putString(MainActivity.DEVICE_NAME, device.getName());
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
@@ -209,9 +209,9 @@ public class BluetoothSerialService {
         setState(STATE_NONE);
 
         // Send a failure message back to the Activity
-        Message msg = mHandler.obtainMessage(BlueTerm.MESSAGE_TOAST);
+        Message msg = mHandler.obtainMessage(MainActivity.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        bundle.putString(BlueTerm.TOAST, "Unable to connect device");
+        bundle.putString(MainActivity.TOAST, "Unable to connect device");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
     }
@@ -223,9 +223,9 @@ public class BluetoothSerialService {
         setState(STATE_NONE);
 
         // Send a failure message back to the Activity
-        Message msg = mHandler.obtainMessage(BlueTerm.MESSAGE_TOAST);
+        Message msg = mHandler.obtainMessage(MainActivity.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        bundle.putString(BlueTerm.TOAST, "Device connection was lost");
+        bundle.putString(MainActivity.TOAST, "Device connection was lost");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
     }
@@ -337,7 +337,7 @@ public class BluetoothSerialService {
 
                     mEmulatorView.write(buffer, bytes);
                     // Send the obtained bytes to the UI Activity
-                    //mHandler.obtainMessage(BlueTerm.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
+                    //mHandler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
                     
                     /* test logcat output 
                     String mark = new String(buffer, "UTF-8");
@@ -367,7 +367,7 @@ public class BluetoothSerialService {
                 String mark = new String(buffer, "UTF-8");
                 Log.e("mark", mark);
                 */
-                mHandler.obtainMessage(BlueTerm.MESSAGE_WRITE, buffer.length, -1, buffer)
+                mHandler.obtainMessage(MainActivity.MESSAGE_WRITE, buffer.length, -1, buffer)
                         .sendToTarget();
             } catch (IOException e) {
                 Log.e(TAG, "Exception during write", e);

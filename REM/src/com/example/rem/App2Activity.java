@@ -31,14 +31,14 @@ public class App2Activity extends Activity implements OnClickListener  {
 		
 		System.out.println("Got here");
 		
-		btnStopAlarm=(Button)findViewById(R.id.button1);		
-		btnStopAlarm.setOnClickListener(this);
+		//btnStopAlarm=(Button)findViewById(R.id.button1);		
+		//btnStopAlarm.setOnClickListener(this);
 		
 		Intent mIntent = getIntent();
 		hour = mIntent.getIntExtra("hour", 0);
 		minute = mIntent.getIntExtra("minute", 0);
-	    TextView textView2 = (TextView) findViewById(R.id.textView2);
-	    textView2.setText("Alarm is set to: " + new StringBuilder().append(pad(hour)).append(":").append(pad(minute)));
+	    //TextView textView2 = (TextView) findViewById(R.id.textView2);
+	    //textView2.setText("Alarm is set to: " + new StringBuilder().append(pad(hour)).append(":").append(pad(minute)));
 	    
 	    smartAlarm = mIntent.getStringExtra("smart_alarm");
 	    bpm = mIntent.getStringExtra("bpm");
