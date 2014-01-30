@@ -45,8 +45,9 @@ public final class R {
         public static final int btnStart=0x7f080010;
         public static final int button1=0x7f080016;
         public static final int button_scan=0x7f08000b;
-        public static final int connect=0x7f080018;
+        public static final int connect=0x7f080019;
         public static final int emulatorView=0x7f080014;
+        public static final int emulatorView2=0x7f080018;
         public static final int heartrate=0x7f080013;
         public static final int imgLogo=0x7f080000;
         public static final int lblTime=0x7f08000e;

@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
 
-    private static TextView mTitle;
+    //private static TextView mTitle;
 
     // Name of the connected device
     private String mConnectedDeviceName = null;
@@ -161,14 +161,14 @@ public class MainActivity extends Activity {
         readPrefs();
         
         // Set up the window layout
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.main2);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
 
         // Set up the custom title
-        mTitle = (TextView) findViewById(R.id.title_left_text);
+/*        mTitle = (TextView) findViewById(R.id.title_left_text);
         mTitle.setText(R.string.app_name);
-        mTitle = (TextView) findViewById(R.id.title_right_text);
+        mTitle = (TextView) findViewById(R.id.title_right_text);*/
         
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -177,18 +177,18 @@ public class MainActivity extends Activity {
 			return;
 		}
 		
-        setContentView(R.layout.term_activity);
+        //setContentView(R.layout.term_activity);
 
-        mEmulatorView = (EmulatorView) findViewById(R.id.emulatorView);
+        mEmulatorView = (EmulatorView) findViewById(R.id.emulatorView2);
 
-        mEmulatorView.initialize( this );
+        //mEmulatorView.initialize( this );
 
         mKeyListener = new TermKeyListener();
 
-        mEmulatorView.setFocusable(true);
+        /*mEmulatorView.setFocusable(true);
         mEmulatorView.setFocusableInTouchMode(true);
         mEmulatorView.requestFocus();
-        mEmulatorView.register(mKeyListener);
+        mEmulatorView.register(mKeyListener);*/
 
         mSerialService = new BluetoothSerialService(this, mHandlerBT, mEmulatorView);        
 
@@ -331,7 +331,7 @@ public class MainActivity extends Activity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.alert_dialog_turn_on_bt)
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle(R.string.alert_dialog_warning_title)
+                    //.setTitle(R.string.alert_dialog_warning_title)
                     .setCancelable( false )
                     .setPositiveButton(R.string.alert_dialog_yes, new DialogInterface.OnClickListener() {
                     	public void onClick(DialogInterface dialog, int id) {
@@ -361,7 +361,7 @@ public class MainActivity extends Activity {
 		    	readPrefs();
 		    	updatePrefs();
 
-		    	mEmulatorView.onResume();
+		    	//mEmulatorView.onResume();
 		    }
 		}
 	}
@@ -415,8 +415,8 @@ public class MainActivity extends Activity {
     private void updatePrefs() {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        mEmulatorView.setTextSize((int) (mFontSize * metrics.density));
-        setColors();
+        //mEmulatorView.setTextSize((int) (mFontSize * metrics.density));
+        //setColors();
         mControlKeyCode = CONTROL_KEY_SCHEMES[mControlKeyId];
     }
 
@@ -442,9 +442,9 @@ public class MainActivity extends Activity {
     	Log.e("mark", out.toString());
     }
     
-    public int getTitleHeight() {
+/*    public int getTitleHeight() {
     	return mTitle.getHeight();
-    }
+    }*/
     
     // The Handler that gets information back from the BluetoothService
     private final Handler mHandlerBT = new Handler() {
@@ -458,27 +458,27 @@ public class MainActivity extends Activity {
                 case BluetoothSerialService.STATE_CONNECTED:
                 	if (mMenuItemConnect != null) {
                 		mMenuItemConnect.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-                		mMenuItemConnect.setTitle(R.string.disconnect);
+                		//mMenuItemConnect.setTitle(R.string.disconnect);
                 	}
                 	
-                    mTitle.setText(R.string.title_connected_to);
-                    mTitle.append(mConnectedDeviceName);
+                    //mTitle.setText(R.string.title_connected_to);
+                    //mTitle.append(mConnectedDeviceName);
                     break;
                     
                 case BluetoothSerialService.STATE_CONNECTING:
-                    mTitle.setText(R.string.title_connecting);
+                    //mTitle.setText(R.string.title_connecting);
                     break;
                     
                 case BluetoothSerialService.STATE_LISTEN:
                 case BluetoothSerialService.STATE_NONE:
                 	if (mMenuItemConnect != null) {
                 		mMenuItemConnect.setIcon(android.R.drawable.ic_menu_search);
-                		mMenuItemConnect.setTitle(R.string.connect);
+                		//mMenuItemConnect.setTitle(R.string.connect);
                 	}
 
             		//mInputManager.hideSoftInputFromWindow(mEmulatorView.getWindowToken(), 0);
                 	
-                    mTitle.setText(R.string.title_not_connected);
+                    //mTitle.setText(R.string.title_not_connected);
 
                     break;
                 }
@@ -516,7 +516,7 @@ public class MainActivity extends Activity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.alert_dialog_no_bt)
         .setIcon(android.R.drawable.ic_dialog_info)
-        .setTitle(R.string.app_name)
+        //.setTitle(R.string.app_name)
         .setCancelable( false )
         .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
@@ -3167,7 +3167,7 @@ class EmulatorView extends View implements GestureDetector.OnGestureListener {
         	visibleRect = new Rect();
             getWindowVisibleDisplayFrame(visibleRect);
             int w = visibleRect.width();
-            int h = visibleRect.height() - mBlueTerm.getTitleHeight() - 2;
+            int h = visibleRect.height() - 2;
             if (w != mWidth || h != mHeight) {
               mWidth = w;
               mHeight = h;
