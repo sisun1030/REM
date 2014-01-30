@@ -157,18 +157,18 @@ public class MainActivity extends Activity {
 		if (DEBUG)
 			Log.e(LOG_TAG, "+++ ON CREATE +++");
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        readPrefs();
+//        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        readPrefs();
         
         // Set up the window layout
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.main2);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
+//        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+//        setContentView(R.layout.main2);
+//        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
 
         // Set up the custom title
-        mTitle = (TextView) findViewById(R.id.title_left_text);
-        mTitle.setText(R.string.app_name);
-        mTitle = (TextView) findViewById(R.id.title_right_text);
+//        mTitle = (TextView) findViewById(R.id.title_left_text);
+//        mTitle.setText(R.string.app_name);
+//        mTitle = (TextView) findViewById(R.id.title_right_text);
         
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -177,18 +177,18 @@ public class MainActivity extends Activity {
 			return;
 		}
 		
-        setContentView(R.layout.term_activity);
+//        setContentView(R.layout.term_activity);
 
         mEmulatorView = (EmulatorView) findViewById(R.id.emulatorView);
 
-        mEmulatorView.initialize( this );
+//        mEmulatorView.initialize( this );
 
         mKeyListener = new TermKeyListener();
 
-        mEmulatorView.setFocusable(true);
-        mEmulatorView.setFocusableInTouchMode(true);
-        mEmulatorView.requestFocus();
-        mEmulatorView.register(mKeyListener);
+//        mEmulatorView.setFocusable(true);
+//        mEmulatorView.setFocusableInTouchMode(true);
+//        mEmulatorView.requestFocus();
+//        mEmulatorView.register(mKeyListener);
 
         mSerialService = new BluetoothSerialService(this, mHandlerBT, mEmulatorView);        
 
@@ -361,7 +361,7 @@ public class MainActivity extends Activity {
 		    	readPrefs();
 		    	updatePrefs();
 
-		    	mEmulatorView.onResume();
+		    	//mEmulatorView.onResume();
 		    }
 		}
 	}
@@ -405,19 +405,19 @@ public class MainActivity extends Activity {
 	}
 
     private void readPrefs() {
-        mLocalEcho = mPrefs.getBoolean(LOCALECHO_KEY, mLocalEcho);
+/*        mLocalEcho = mPrefs.getBoolean(LOCALECHO_KEY, mLocalEcho);
         mFontSize = readIntPref(FONTSIZE_KEY, mFontSize, 20);
         mColorId = readIntPref(COLOR_KEY, mColorId, COLOR_SCHEMES.length - 1);
         mControlKeyId = readIntPref(CONTROLKEY_KEY, mControlKeyId,
-                CONTROL_KEY_SCHEMES.length - 1);
+                CONTROL_KEY_SCHEMES.length - 1);*/
     }
 
     private void updatePrefs() {
-        DisplayMetrics metrics = new DisplayMetrics();
+/*        DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         mEmulatorView.setTextSize((int) (mFontSize * metrics.density));
         setColors();
-        mControlKeyCode = CONTROL_KEY_SCHEMES[mControlKeyId];
+        mControlKeyCode = CONTROL_KEY_SCHEMES[mControlKeyId]; */
     }
 
     private int readIntPref(String key, int defaultValue, int maxValue) {
@@ -2717,8 +2717,8 @@ class EmulatorView extends View implements GestureDetector.OnGestureListener {
     }
     
     public void onResume() {
-        updateSize();
-        mHandler.postDelayed(mCheckSize, 1000);
+/*        updateSize();
+        mHandler.postDelayed(mCheckSize, 1000); */
     }
 
     public void onPause() {

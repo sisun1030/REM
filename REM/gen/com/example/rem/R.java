@@ -43,9 +43,8 @@ public final class R {
     public static final class id {
         public static final int btnChangeTime=0x7f08000c;
         public static final int btnStart=0x7f080010;
-        public static final int button1=0x7f080016;
         public static final int button_scan=0x7f08000b;
-        public static final int connect=0x7f080018;
+        public static final int connect=0x7f080016;
         public static final int emulatorView=0x7f080014;
         public static final int heartrate=0x7f080013;
         public static final int imgLogo=0x7f080000;
@@ -58,8 +57,7 @@ public final class R {
         public static final int smartalarm=0x7f080011;
         public static final int smile=0x7f080002;
         public static final int stopAlarm=0x7f080001;
-        public static final int test=0x7f080017;
-        public static final int textView2=0x7f080015;
+        public static final int test=0x7f080015;
         public static final int timePicker1=0x7f08000d;
         public static final int title_left_text=0x7f080005;
         public static final int title_new_devices=0x7f080009;
