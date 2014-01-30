@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/wakeup"  >
+
+    <Button
+        android:id="@+id/stopAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stop_alarm"
+        android:layout_gravity="center_horizontal" />
+    
+    <Button
+        android:id="@+id/smile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+	    android:background="@drawable/smile"
+	    android:button="@android:color/transparent" 
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/stopAlarm" 
+        android:visibility="invisible"/>
+    
+    <Button
+        android:id="@+id/neutral"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+	    android:background="@drawable/neutral"
+	    android:button="@android:color/transparent" 
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/stopAlarm"
+        android:layout_toRightOf="@id/smile" 
+        android:visibility="invisible"/>
+    
+    <Button
+        android:id="@+id/sad"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+	    android:background="@drawable/sad"
+	    android:button="@android:color/transparent" 
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/stopAlarm"
+        android:layout_toRightOf="@id/neutral"
+        android:visibility="invisible" />
+
+</RelativeLayout>
