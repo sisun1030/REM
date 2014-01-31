@@ -46,7 +46,6 @@ import android.widget.Button;
 
 public class BlueTerm extends Activity {
 	
-	private static int SPLASH_TIME_OUT = 3000;
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
@@ -141,11 +140,14 @@ public class BlueTerm extends Activity {
     
     static int hour, minute, am_pm;
 
+    private static int SPLASH_TIME_OUT = 15000;
+
     
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 
 		if (DEBUG)
 			Log.e(LOG_TAG, "+++ ON CREATE +++");
@@ -395,8 +397,27 @@ public class BlueTerm extends Activity {
                 Toast.makeText(getApplicationContext(), "This is now connected to "
                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                 
-                Intent i = new Intent(BlueTerm.this, FinalPage.class);
-                startActivity(i);
+                //Intent i = new Intent(BlueTerm.this, FinalPage.class);
+                //startActivity(i);
+                
+                new Handler().postDelayed(new Runnable() {
+                	 
+                    /*
+                     * Showing splash screen with a timer. This will be useful when you
+                     * want to show case your app logo / company
+                     */
+         
+                    @Override
+                    public void run() {
+                        // This method will be executed once the timer is over
+                        // Start your app main activity
+                        Intent i = new Intent(BlueTerm.this, FinalPage.class);
+                        startActivity(i);
+         
+                        // close this activity
+                        finish();
+                    }
+                }, SPLASH_TIME_OUT);
          
                 break;
             case MESSAGE_TOAST:
