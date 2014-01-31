@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.content.Context;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-
  
 public class MainActivity extends Activity {
  
@@ -86,7 +85,7 @@ public class MainActivity extends Activity {
 		
 		btnStartAlarm = (ImageButton) findViewById(R.id.btnStart);
 		btnStartAlarm.setOnClickListener(new OnClickListener() {
- 
+
 			@Override
 			public void onClick(View v) {
 				System.out.println("Time selected and going to sleep");

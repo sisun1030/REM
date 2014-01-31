@@ -40,9 +40,13 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
+import android.widget.Button;
+
 
 
 public class BlueTerm extends Activity {
+	
+	private static int SPLASH_TIME_OUT = 3000;
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
@@ -335,7 +339,10 @@ public class BlueTerm extends Activity {
     private final Handler mHandlerBT = new Handler() {
     	
         @Override
-        public void handleMessage(Message msg) {        	
+        public void handleMessage(Message msg) {      
+        	//System.out.println("Sisun");
+        	
+        	
             switch (msg.what) {
             case MESSAGE_STATE_CHANGE:
                 if(DEBUG) Log.i(LOG_TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
@@ -385,8 +392,12 @@ public class BlueTerm extends Activity {
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name
                 mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
-                Toast.makeText(getApplicationContext(), "Connected to "
+                Toast.makeText(getApplicationContext(), "This is now connected to "
                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                
+                Intent i = new Intent(BlueTerm.this, FinalPage.class);
+                startActivity(i);
+         
                 break;
             case MESSAGE_TOAST:
                 Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
