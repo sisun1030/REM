@@ -45,6 +45,9 @@
                   android:configChanges="orientation|keyboardHidden" />
         <activity android:name="TermPreferences"/>
         
+        <receiver android:name=".AlarmReceiver" >
+        </receiver>
+        
     </application>
     
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />

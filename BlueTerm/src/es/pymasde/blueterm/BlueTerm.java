@@ -3,7 +3,9 @@ package es.pymasde.blueterm;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,6 +43,12 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 import android.widget.Button;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+import java.text.ParseException;
+import java.text.DateFormat;
+
 
 
 
@@ -140,7 +148,12 @@ public class BlueTerm extends Activity {
     
     static int hour, minute, am_pm;
 
-    private static int SPLASH_TIME_OUT = 15000;
+    private static int SPLASH_TIME_OUT = 1000;
+    private AlarmManager mAlarmManager;
+    private Intent mNotificationReceiverIntent;
+	private PendingIntent mNotificationReceiverPendingIntent;
+    
+	private static final long INITIAL_ALARM_DELAY = 2 * 60 * 1000L;
 
     
 	/** Called when the activity is first created. */
@@ -148,15 +161,45 @@ public class BlueTerm extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-
+		
+		//This is where we call the AlarmManager service to set the alarm:
+		
+		//First we grab user alarm time 		
+		Intent mIntent = getIntent();
+		hour = mIntent.getIntExtra("hour", 0);
+		minute = mIntent.getIntExtra("minute", 0);	
+		String inputString = Integer.toString(hour) + ":" + Integer.toString(minute);
+		
+		//Next we re-format it into Date milliseconds
+		SimpleDateFormat simpleDateFormate = new SimpleDateFormat("HH:mm");
+	    simpleDateFormate.setTimeZone(TimeZone.getTimeZone("UTC"));
+	    Date date = null;
+	    try {
+	        date = simpleDateFormate.parse( inputString);
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	    }
+	    System.out.println("in millSeconds: " + date.getTime());  
+	    long yourvar=date.getTime();
+	    
+		//Then we call AlarmReceiver broadcast class, which calls the FinalPage activity class
+		mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		
+		mNotificationReceiverIntent = new Intent(BlueTerm.this, AlarmReceiver.class);
+		mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(BlueTerm.this, 0, mNotificationReceiverIntent, 0);
+		
+		mAlarmManager.set(AlarmManager.RTC_WAKEUP,
+				yourvar,
+				mNotificationReceiverPendingIntent);
+		
+		////////////////////////////////////////////////////////////////////////
+		
+		
 		if (DEBUG)
 			Log.e(LOG_TAG, "+++ ON CREATE +++");
 		
 		System.out.println("Got here");
 		
-		Intent mIntent = getIntent();
-		hour = mIntent.getIntExtra("hour", 0);
-		minute = mIntent.getIntExtra("minute", 0);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         readPrefs();
@@ -342,7 +385,7 @@ public class BlueTerm extends Activity {
     	
         @Override
         public void handleMessage(Message msg) {      
-        	//System.out.println("Sisun");
+        	System.out.println("++ TEST ++");
         	
         	
             switch (msg.what) {
@@ -397,8 +440,6 @@ public class BlueTerm extends Activity {
                 Toast.makeText(getApplicationContext(), "This is now connected to "
                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                 
-                //Intent i = new Intent(BlueTerm.this, FinalPage.class);
-                //startActivity(i);
                 
                 new Handler().postDelayed(new Runnable() {
                 	 

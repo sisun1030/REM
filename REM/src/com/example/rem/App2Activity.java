@@ -22,12 +22,28 @@ public class App2Activity extends Activity implements OnClickListener  {
 	private Button btnStopAlarm;
 	static int hour, minute, am_pm;
 	static String smartAlarm, bpm, motion;
+	
+	private AlarmManager mAlarmManager;
+    private Intent mNotificationReceiverIntent;
+	private PendingIntent mNotificationReceiverPendingIntent;
+    
+	private static final long INITIAL_ALARM_DELAY = 1 * 60 * 1000L;
  
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 			
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main2);
+		
+		// Get the AlarmManager Service
+				mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+				
+				mNotificationReceiverIntent = new Intent(App2Activity.this, FinalPage.class);
+				mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(App2Activity.this, 0, mNotificationReceiverIntent, 0);
+				
+				mAlarmManager.set(AlarmManager.RTC_WAKEUP,
+						System.currentTimeMillis() + INITIAL_ALARM_DELAY,
+						mNotificationReceiverPendingIntent);
 		
 		System.out.println("Got here");
 		

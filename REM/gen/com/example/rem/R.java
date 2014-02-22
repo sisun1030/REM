@@ -29,14 +29,15 @@ public final class R {
         public static final int change_time=0x7f020005;
         public static final int gradient_background=0x7f020006;
         public static final int ic_launcher=0x7f020007;
-        public static final int movement_grey=0x7f020008;
-        public static final int movement_white=0x7f020009;
-        public static final int neutral=0x7f02000a;
-        public static final int sad=0x7f02000b;
-        public static final int sleeping=0x7f02000c;
-        public static final int smile=0x7f02000d;
-        public static final int start_sleep=0x7f02000e;
-        public static final int wakeup=0x7f02000f;
+        public static final int icon=0x7f020008;
+        public static final int movement_grey=0x7f020009;
+        public static final int movement_white=0x7f02000a;
+        public static final int neutral=0x7f02000b;
+        public static final int sad=0x7f02000c;
+        public static final int sleeping=0x7f02000d;
+        public static final int smile=0x7f02000e;
+        public static final int start_sleep=0x7f02000f;
+        public static final int wakeup=0x7f020010;
     }
     public static final class id {
         public static final int action_settings=0x7f080010;
