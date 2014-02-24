@@ -2,7 +2,6 @@
 <resources>
     
     <string name="app_name">Teddy</string>
-    <string name="sleep_log">My Sleep Logs</string>
     
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>

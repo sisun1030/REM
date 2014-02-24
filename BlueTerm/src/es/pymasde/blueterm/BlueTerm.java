@@ -148,7 +148,7 @@ public class BlueTerm extends Activity {
     
     static int hour, minute, am_pm;
 
-    private static int SPLASH_TIME_OUT = 10000;
+    private static int SPLASH_TIME_OUT = 1000;
     private AlarmManager mAlarmManager;
     private Intent mNotificationReceiverIntent;
 	private PendingIntent mNotificationReceiverPendingIntent;
@@ -182,17 +182,11 @@ public class BlueTerm extends Activity {
 	    System.out.println("in millSeconds: " + date.getTime());  
 	    long yourvar=date.getTime();
 	    
-	    Date currentDate = new Date(System.currentTimeMillis());
-	    System.out.println("current time: " + currentDate.getTime());
-
-	    
 		//Then we call AlarmReceiver broadcast class, which calls the FinalPage activity class
-		
-	    mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		
 		mNotificationReceiverIntent = new Intent(BlueTerm.this, AlarmReceiver.class);
 		mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(BlueTerm.this, 0, mNotificationReceiverIntent, 0);
-		
 		
 		mAlarmManager.set(AlarmManager.RTC_WAKEUP,
 				yourvar,
@@ -446,10 +440,13 @@ public class BlueTerm extends Activity {
                 Toast.makeText(getApplicationContext(), "This is now connected to "
                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                 
-                /*
                 
                 new Handler().postDelayed(new Runnable() {
-                	
+                	 
+                    /*
+                     * Showing splash screen with a timer. This will be useful when you
+                     * want to show case your app logo / company
+                     */
          
                     @Override
                     public void run() {
@@ -462,8 +459,6 @@ public class BlueTerm extends Activity {
                         finish();
                     }
                 }, SPLASH_TIME_OUT);
-                
-                */
          
                 break;
             case MESSAGE_TOAST:
