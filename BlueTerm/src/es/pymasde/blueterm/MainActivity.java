@@ -1,15 +1,20 @@
 package es.pymasde.blueterm;
 
 import java.util.Calendar;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.content.Intent;
 import android.content.Context;
 import android.widget.CheckBox;
@@ -34,6 +39,38 @@ public class MainActivity extends Activity {
 		setCurrentTimeOnView();
 		addListenerOnButton();
  
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.top_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		final Context context = this;
+		switch (item.getItemId()) {
+		case R.id.setting:
+			Toast.makeText(getApplicationContext(), "Settings Page", Toast.LENGTH_SHORT).show();
+			
+			Intent intent = new Intent(context, SettingPage.class);
+            startActivity(intent); 
+			
+            return true;
+            
+		case R.id.sleep_log:
+			Toast.makeText(getApplicationContext(), "Sleep Logs", Toast.LENGTH_SHORT).show();
+			
+			Intent intent2 = new Intent(context, SleepLog.class);
+            startActivity(intent2); 
+            
+			return true;
+		
+		default:
+			return false;
+		}
 	}
  
 	
