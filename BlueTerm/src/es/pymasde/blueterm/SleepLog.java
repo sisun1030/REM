@@ -1,7 +1,7 @@
 package es.pymasde.blueterm;
 
 import es.pymasde.blueterm.sqlite.DatabaseHandler;
-import es.pymasde.blueterm.data.Contact;
+import es.pymasde.blueterm.data.Sleep;
 
 import java.util.List;
 import android.os.Bundle;
@@ -23,17 +23,17 @@ public class SleepLog extends Activity {
          * */
         // Inserting Contacts
         Log.d("Insert: ", "Inserting ..");
-        db.addContact(new Contact("Ravi", "9100000000"));
-        db.addContact(new Contact("Srinivas", "9199999999"));
-        db.addContact(new Contact("Tommy", "9522222222"));
-        db.addContact(new Contact("Karthik", "9533333333"));
+        db.addSleep(new Sleep("10pm","8am","happy"));
+        db.addSleep(new Sleep("11pm","8am","sad"));
+        db.addSleep(new Sleep("12am","6am","meh"));
+        db.addSleep(new Sleep("12am","7am","happy"));
  
         // Reading all contacts
         Log.d("Reading: ", "Reading all contacts..");
-        List<Contact> contacts = db.getAllContacts();       
+        List<Sleep> sleepLogs = db.getAllContacts();       
  
-        for (Contact cn : contacts) {
-            String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber();
+        for (Sleep cn : sleepLogs) {
+            String log = "Id: "+cn.getID()+" ,SleepTime: " + cn.getSleepTime() + " ,AwakeTime: " + cn.getAwakeTime() +" ,Mood: " + cn.getMood();
                 // Writing Contacts to log
             Log.d("Name: ", log);
         
