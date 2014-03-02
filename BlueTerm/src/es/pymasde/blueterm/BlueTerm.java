@@ -44,6 +44,7 @@ import android.util.Log;
 import android.widget.Toast;
 import android.widget.Button;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 import java.text.ParseException;
@@ -896,8 +897,8 @@ class TranscriptScreen implements Screen {
      */
     public void set(int x, int y, byte b, int foreColor, int backColor) {
     	//mk9
-    	System.out.println((char) b);
-    	System.out.println(b);
+    	//System.out.println((char) b);
+    	//System.out.println(b);
         mData[getOffset(x, y)] = encode(b, foreColor, backColor);
     }
 
@@ -1372,6 +1373,10 @@ class TerminalEmulator {
     private boolean mbKeypadApplicationMode;
 
     private boolean mAlternateCharSet;
+    
+    private String mDataString = "";
+    
+    private ArrayList<String> mDataArray = new ArrayList<String>();
 
     /**
      * Construct a terminal emulator that uses the supplied screen
@@ -1551,8 +1556,18 @@ class TerminalEmulator {
             mContinueSequence = false;
             switch (mEscapeState) {
             case ESC_NONE:
-                if (b >= 32) {
-                    emit(b);
+                if (b > 32) {
+                	char charData = (char) b;
+                	String stringData = Character.toString(charData);
+                	mDataString = mDataString.concat(stringData);
+                	System.out.println(mDataString);
+                	emit(b);
+                } else if (b == 32) {
+                	mDataArray.add(mDataString);
+                	int sizeOfArray = mDataArray.size();
+                	mDataString = "";
+                	System.out.println(mDataArray.get(0));
+                	emit(b);
                 }
                 break;
 
