@@ -6,6 +6,7 @@ public class Sleep {
 	int _id;
 	String _sleep_time;
 	String _awake_time;
+	String _date;
 	String _mood;
 	
 	// Empty constructor
@@ -13,17 +14,19 @@ public class Sleep {
 		
 	}
 	// constructor
-	public Sleep(int id, String sleep_time, String awake_time, String mood){
+	public Sleep(int id, String sleep_time, String awake_time, String date, String mood){
 		this._id = id;
 		this._sleep_time = sleep_time;
 		this._awake_time = awake_time;
+		this._date = date;
 		this._mood = mood;
 	}
 	
 	// constructor
-	public Sleep(String sleep_time, String awake_time, String mood){
+	public Sleep(String sleep_time, String awake_time, String date, String mood){
 		this._sleep_time = sleep_time;
 		this._awake_time = awake_time;
+		this._date = date;
 		this._mood = mood;
 	}
 	// getting ID
@@ -54,6 +57,16 @@ public class Sleep {
 	// setting awake time
 	public void setAwakeTime(String awake_time){
 		this._awake_time = awake_time;
+	}
+	
+	// getting awake time
+	public String getDate(){
+		return this._date;
+	}
+			
+	// setting awake time
+	public void setDate(String date){
+		this._date = date;
 	}
 	
 	// getting mood

@@ -27,6 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_ID = "id";
 	private static final String SLEEP_TIME = "sleep_time";
 	private static final String AWAKE_TIME = "awake_time";
+	private static final String DATE = "date";
 	private static final String MOOD = "mood";
 
 	public DatabaseHandler(Context context) {
@@ -38,7 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_SLEEPLOG + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY," + SLEEP_TIME + " LONG,"
-				+ AWAKE_TIME + " LONG," + MOOD + " TEXT" + ")";
+				+ AWAKE_TIME + " LONG," + DATE + " TEXT," + MOOD + " TEXT" + ")";
 		db.execSQL(CREATE_CONTACTS_TABLE);
 	}
 
@@ -63,6 +64,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(SLEEP_TIME, contact.getSleepTime()); 
 		values.put(AWAKE_TIME, contact.getAwakeTime()); 
+		values.put(DATE, contact.getDate());
 		values.put(MOOD, contact.getMood()); 
 
 		// Inserting Row
@@ -71,26 +73,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	// Getting single contact
-	Sleep getSleep(int id) {
-		SQLiteDatabase db = this.getReadableDatabase();
-
-		Cursor cursor = db.query(TABLE_SLEEPLOG, new String[] { KEY_ID,
-				SLEEP_TIME, AWAKE_TIME, MOOD }, KEY_ID + "=?",
-				new String[] { String.valueOf(id) }, null, null, null, null);
-		if (cursor != null)
-			cursor.moveToFirst();
-
-		Sleep sleep_time = new Sleep(Integer.parseInt(cursor.getString(0)),
-				cursor.getString(1), cursor.getString(2), cursor.getString(3));
-		// return contact
-		return sleep_time;
+	public Sleep getSleep(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();		
+		//String selectQuery = "SELECT * FROM " + TABLE_SLEEPLOG + " WHERE " + KEY_ID + " = ?", new String[] {Integer.toString(id)};
+		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_SLEEPLOG + " WHERE " + KEY_ID + " = ?", new String[] { Integer.toString(id) });
+		//Cursor cursor = db.rawQuery(selectQuery, null);
+		
+		Sleep latestLog = new Sleep();
+		if (cursor.moveToFirst()) {
+			do {
+				latestLog.setID(Integer.parseInt(cursor.getString(0)));
+				latestLog.setSleepTime(cursor.getString(1));
+				latestLog.setAwakeTime(cursor.getString(2));
+				latestLog.setDate(cursor.getString(3));
+				latestLog.setMood(cursor.getString(4));
+			} while (cursor.moveToNext());
+		}
+		
+		return latestLog; 
 	}
 	
 	// Getting All Contacts
 	public List<Sleep> getAllContacts() {
 		List<Sleep> contactList = new ArrayList<Sleep>();
 		// Select All Query
-		String selectQuery = "SELECT  * FROM " + TABLE_SLEEPLOG;
+		String selectQuery = "SELECT  * FROM " + TABLE_SLEEPLOG + " ORDER BY id DESC";
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -102,7 +109,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				contact.setID(Integer.parseInt(cursor.getString(0)));
 				contact.setSleepTime(cursor.getString(1));
 				contact.setAwakeTime(cursor.getString(2));
-				contact.setMood(cursor.getString(3));
+				contact.setDate(cursor.getString(3));
+				contact.setMood(cursor.getString(4));
 				// Adding contact to list
 				contactList.add(contact);
 			} while (cursor.moveToNext());
@@ -110,6 +118,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		// return contact list
 		return contactList;
+	}
+	
+	// Get the latest sleep log saved
+	public Sleep getLatestSleep() {
+		String selectQuery = "SELECT  * FROM " + TABLE_SLEEPLOG + " ORDER BY id DESC LIMIT 1";
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		
+		Sleep latestLog = new Sleep();
+		if (cursor.moveToFirst()) {
+			do {
+				latestLog.setID(Integer.parseInt(cursor.getString(0)));
+				latestLog.setSleepTime(cursor.getString(1));
+				latestLog.setAwakeTime(cursor.getString(2));
+				latestLog.setDate(cursor.getString(3));
+				latestLog.setMood(cursor.getString(4));
+			} while (cursor.moveToNext());
+		}
+		
+		return latestLog; 
 	}
 
 	// Updating single contact
@@ -119,6 +147,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(SLEEP_TIME, contact.getSleepTime());
 		values.put(AWAKE_TIME, contact.getAwakeTime());
+		values.put(DATE, contact.getDate());
 		values.put(MOOD, contact.getMood());
 
 		// updating row
@@ -138,12 +167,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Getting sleep log Count
 	public int getSleepsCount() {
 		String countQuery = "SELECT  * FROM " + TABLE_SLEEPLOG;
-		SQLiteDatabase db = this.getReadableDatabase();
+		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
-		cursor.close();
 
 		// return count
 		return cursor.getCount();
 	}
+	
+
 
 }
