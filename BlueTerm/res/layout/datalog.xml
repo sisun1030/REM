@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:weightSum="8">
+    
+    <TextView
+	    android:id="@+id/lblDate"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:text="Mar 04 2014" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="8" >
+
+		<Button
+	        android:id="@+id/btnLeft"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:layout_weight="1"
+			android:text="L" />
+	    
+	    <TextView
+	        android:id="@+id/lblGraph"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:layout_weight="6"
+	        android:gravity="center"
+	        android:text="Graph" />
+	    
+	    <Button 
+	        android:id="@+id/btnRight"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:layout_weight="1"
+	        android:text="R" />
+	</LinearLayout>	
+	
+    <TextView
+	    android:id="@+id/lblMood"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:text="Felt happy" />
+
+	<TextView
+	    android:id="@+id/lblTimeSlept"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="27dp"
+	    android:gravity="center"
+	    android:text="10:00 PM - 8:00 AM" />
+
+</LinearLayout>
