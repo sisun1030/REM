@@ -149,7 +149,7 @@ public class BlueTerm extends Activity {
     
     static int hour, minute, am_pm;
 
-    private static int SPLASH_TIME_OUT = 10000;
+    private static int SPLASH_TIME_OUT = 5000;
     private AlarmManager mAlarmManager;
     private Intent mNotificationReceiverIntent;
 	private PendingIntent mNotificationReceiverPendingIntent;
@@ -188,6 +188,7 @@ public class BlueTerm extends Activity {
 
 	    
 		//Then we call AlarmReceiver broadcast class, which calls the FinalPage activity class
+	    /*
 		
 	    mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		
@@ -198,7 +199,7 @@ public class BlueTerm extends Activity {
 		mAlarmManager.set(AlarmManager.RTC_WAKEUP,
 				yourvar,
 				mNotificationReceiverPendingIntent);
-		
+		*/
 		////////////////////////////////////////////////////////////////////////
 		
 		
@@ -447,7 +448,7 @@ public class BlueTerm extends Activity {
                 Toast.makeText(getApplicationContext(), "This is now connected to "
                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                 
-                /*
+                
                 
                 new Handler().postDelayed(new Runnable() {
                 	
@@ -457,6 +458,13 @@ public class BlueTerm extends Activity {
                         // This method will be executed once the timer is over
                         // Start your app main activity
                         Intent i = new Intent(BlueTerm.this, FinalPage.class);
+                        
+                        //your variables passed here
+                        ArrayList<String[]> sleepData = new ArrayList<String[]>();
+                        sleepData = TerminalEmulator.getDataArray();
+                        i.putExtra("sleepData", sleepData);
+                        
+                        
                         startActivity(i);
          
                         // close this activity
@@ -464,7 +472,7 @@ public class BlueTerm extends Activity {
                     }
                 }, SPLASH_TIME_OUT);
                 
-                */
+                
          
                 break;
             case MESSAGE_TOAST:
@@ -1374,10 +1382,16 @@ class TerminalEmulator {
 
     private boolean mAlternateCharSet;
     
+    private static ArrayList<String[]> mDataArray = new ArrayList<String[]>();
+    
+    public static ArrayList<String[]> getDataArray() {
+    	return mDataArray;
+    }
+    
     private String mDataString = "";
     
-    private ArrayList<String> mDataArray = new ArrayList<String>();
-
+    private String mTimeString = "";
+    
     /**
      * Construct a terminal emulator that uses the supplied screen
      *
@@ -1560,13 +1574,19 @@ class TerminalEmulator {
                 	char charData = (char) b;
                 	String stringData = Character.toString(charData);
                 	mDataString = mDataString.concat(stringData);
-                	System.out.println(mDataString);
                 	emit(b);
                 } else if (b == 32) {
-                	mDataArray.add(mDataString);
-                	int sizeOfArray = mDataArray.size();
+                	Date currentDate = new Date();
+                	String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentDate);          	
+                    String[] tempArray = new String[2];
+                    tempArray[0] = dateTime;
+                    tempArray[1] = mDataString;
+                	mDataArray.add(tempArray);
                 	mDataString = "";
-                	System.out.println(mDataArray.get(0));
+                	int sizeOfArray = mDataArray.size();
+                	System.out.print(mDataArray.get(sizeOfArray-1)[0]);
+                	System.out.print(" ");
+                	System.out.println(mDataArray.get(sizeOfArray-1)[1]);
                 	emit(b);
                 }
                 break;

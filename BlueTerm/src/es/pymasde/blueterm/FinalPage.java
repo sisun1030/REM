@@ -1,5 +1,6 @@
 package es.pymasde.blueterm;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.view.Window;
 
 public class FinalPage extends Activity {
+	
+	private static ArrayList<String> sleepData = new ArrayList<String>();
 
 	
     @Override
@@ -20,6 +23,16 @@ public class FinalPage extends Activity {
         //Create an offset from the current time in which the alarm will go off.
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.SECOND, 0);
+        
+        //Pass sleep data when alarm rings
+        Intent mIntent = getIntent();
+        ArrayList<String[]> sleepData =(ArrayList<String[]>) mIntent.getSerializableExtra("sleepData");
+        
+        //This will get you the first sleep time - sleepData.get(0 to number of data points)[0 for time, 1 for data]
+        //Example:
+        //System.out.println(sleepData.get(0)[0]);
+        //This will get you the first sleep data
+        //System.out.println(sleepData.get(0)[1]);
 
         //Create a new PendingIntent and add it to the AlarmManager
         Intent intent = new Intent(this, AlarmReceiverActivity.class);
