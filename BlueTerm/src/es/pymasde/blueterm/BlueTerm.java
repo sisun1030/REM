@@ -187,7 +187,7 @@ public class BlueTerm extends Activity {
 	    System.out.println("current time: " + currentDate.getTime());
 
 	    
-		//Then we call AlarmReceiver broadcast class, which calls the FinalPage activity class
+		//Then we call AlarmReceiver broadcast class, which calls the Final activity class
 	    /*
 		
 	    mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -457,7 +457,7 @@ public class BlueTerm extends Activity {
                     public void run() {
                         // This method will be executed once the timer is over
                         // Start your app main activity
-                        Intent i = new Intent(BlueTerm.this, FinalPage.class);
+                        Intent i = new Intent(BlueTerm.this, AlarmReceiverActivity.class);
                         
                         //your variables passed here
                         ArrayList<String[]> sleepData = new ArrayList<String[]>();

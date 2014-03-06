@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.pymasde.blueterm.data.Sleep;
+import es.pymasde.blueterm.data.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,8 +21,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Database Name
 	private static final String DATABASE_NAME = "sleepManager";
 
-	// Sleep Log name
+	// Tables
 	private static final String TABLE_SLEEPLOG = "sleepLog";
+	private static final String TABLE_DATALOG = "dataLog";
 
 	// Sleep Log Table Columns names
 	private static final String KEY_ID = "id";
@@ -29,6 +31,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String AWAKE_TIME = "awake_time";
 	private static final String DATE = "date";
 	private static final String MOOD = "mood";
+	
+	// Data Log Table Column names
+	private static final String TIME = "time";
+	private static final String ACCEL = "accel";
+	private static final String BPM = "bpm";
+	private static final String REM = "rem";
 
 	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,25 +45,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_SLEEPLOG + "("
+		String CREATE_SLEEPLOG_TABLE = "CREATE TABLE " + TABLE_SLEEPLOG + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY," + SLEEP_TIME + " LONG,"
 				+ AWAKE_TIME + " LONG," + DATE + " TEXT," + MOOD + " TEXT" + ")";
-		db.execSQL(CREATE_CONTACTS_TABLE);
+		db.execSQL(CREATE_SLEEPLOG_TABLE);
+		
+		String CREATE_DATALOG_TABLE = "CREATE TABLE " + TABLE_DATALOG + "("
+				+ KEY_ID + " INTEGER," + TIME + " INT,"
+				+ ACCEL + " INT," + BPM + " INT," + REM + " INT" + ")";
+		db.execSQL(CREATE_DATALOG_TABLE);
 	}
 
 	// Upgrading database
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// Drop older table if existed
+		// Drop older tables if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SLEEPLOG);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_DATALOG);
 
 		// Create tables again
 		onCreate(db);
 	}
 
-	/**
-	 * All CRUD(Create, Read, Update, Delete) Operations
+	
+	/** Below are methods for the Sleep Log Table
 	 */
+	
 
 	// Adding new contact
 	public void addSleep(Sleep contact) {
@@ -175,5 +190,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 
+	/** Below are methods for the Data Log Table
+	 */
+	
+	// Adding new contact
+	public void addData(Data contact) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_ID, contact.getID()); 
+		values.put(TIME, contact.getTime()); 
+		values.put(ACCEL, contact.getAccel()); 
+		values.put(BPM, contact.getBpm());
+		values.put(REM, contact.getRem()); 
+
+		// Inserting Row
+		db.insert(TABLE_DATALOG, null, values);
+		db.close(); // Closing database connection
+	}	
+	
 
 }

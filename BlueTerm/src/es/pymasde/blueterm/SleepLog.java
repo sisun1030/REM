@@ -28,7 +28,7 @@ public class SleepLog extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_page);
+        setContentView(R.layout.datalog);
         addListenerOnButton();
         
         
