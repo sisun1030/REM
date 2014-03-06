@@ -2,6 +2,15 @@ package es.pymasde.blueterm;
 
 import es.pymasde.blueterm.sqlite.DatabaseHandler;
 import es.pymasde.blueterm.data.Sleep;
+import es.pymasde.blueterm.data.Data;
+
+import com.jjoe64.graphview.BarGraphView;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.LineGraphView;
+import android.widget.LinearLayout;
+
 
 import java.util.List;
 import android.os.Bundle;
@@ -12,8 +21,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
-
-
+import java.util.LinkedList;
 
 
 public class SleepLog extends Activity {
@@ -23,7 +31,8 @@ public class SleepLog extends Activity {
 	private int count, sleep_id;
 	
 	DatabaseHandler db = new DatabaseHandler(this);
-	
+	//GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {});
+	//GraphView graphView = new LineGraphView(this, "BPM Data");
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,16 +40,6 @@ public class SleepLog extends Activity {
         setContentView(R.layout.datalog);
         addListenerOnButton();
         
-        
-        /*
-        // Inserting sample data first
-        Log.d("Insert: ", "Inserting ..");
-        db.addSleep(new Sleep("10pm","8am","Friday","happy"));
-        db.addSleep(new Sleep("11pm","8am","Saturday","sad"));
-        db.addSleep(new Sleep("12am","6am","Sunday","meh"));
-        db.addSleep(new Sleep("12am","7am","Sunday","happy"));
-        
-        */
         Sleep latestLog = db.getLatestSleep();
         count = db.getSleepsCount();
         sleep_id = latestLog.getID();
@@ -56,18 +55,33 @@ public class SleepLog extends Activity {
         tvAwakeTime.setText(latestLog.getAwakeTime());
         tvMood.setText(latestLog.getMood());
         
-        next = (Button)findViewById(R.id.next);
         previous = (Button)findViewById(R.id.previous);
         
-        /*
-        if (sleep_id == 1 && (count > 1)){
-        	next.setVisibility(View.VISIBLE);
-        }
-        */
         if (sleep_id > 1){
         	previous.setVisibility(View.VISIBLE);
         }       
         
+        
+        // Creating Graphs       
+        GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {});
+        
+        int j = 1;
+        List<String> seconds = new LinkedList<String>();
+        
+        List<Data> dataLogs = db.getSleepData(sleep_id);
+        for (Data cn : dataLogs) {
+        	exampleSeries.appendData(new GraphViewData(j, Integer.parseInt(cn.getBpm())), true, 10);
+        	j = j + 1;
+        	seconds.add(cn.getTime());
+        }
+        
+    	GraphView graphView = new LineGraphView(this, "BPM Data");
+        graphView.addSeries(exampleSeries);
+        graphView.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        
+        LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
+        layout.addView(graphView);
+    
  
         // Reading all sleep logs
         Log.d("Reading: ", "Reading all contacts..");
@@ -82,6 +96,33 @@ public class SleepLog extends Activity {
         }
     }
 	
+	public void changeGraphs(){
+		// Creating Graphs               
+        System.out.println(Integer.toString(sleep_id));
+        System.out.println("CHECK POINT");
+
+        GraphViewSeries exampleSeries2 = new GraphViewSeries(new GraphViewData[] {});
+        
+        int j = 1;
+        List<String> seconds = new LinkedList<String>();
+        
+        List<Data> dataLogs = db.getSleepData(sleep_id);
+        for (Data cn : dataLogs) {
+        	exampleSeries2.appendData(new GraphViewData(j, Integer.parseInt(cn.getBpm())), true, 10);
+        	j = j + 1;
+        	seconds.add(cn.getTime());
+        }
+        
+    	GraphView graphView2 = new LineGraphView(this, "BPM Data");
+        graphView2.addSeries(exampleSeries2);
+        graphView2.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        
+        LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
+        layout.removeAllViews();
+        
+        LinearLayout layout2 = (LinearLayout) findViewById(R.id.graph1);
+        layout2.addView(graphView2);
+	}
 	
 	public void addListenerOnButton() {
 	
@@ -117,6 +158,9 @@ public class SleepLog extends Activity {
 		        else{
 		        	previous.setVisibility(View.INVISIBLE);
 		        }
+		        
+		        changeGraphs();
+		        
 			}
 		});
 		
@@ -153,6 +197,7 @@ public class SleepLog extends Activity {
 		        	previous.setVisibility(View.INVISIBLE);
 		        }
 		        
+		        changeGraphs();
 			}
 		});
 		

@@ -6,7 +6,7 @@
     android:weightSum="8">
     
     <TextView
-	    android:id="@+id/lblDate"
+	    android:id="@+id/textDate"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:gravity="center"
@@ -20,11 +20,12 @@
         android:weightSum="8" >
 
 		<Button
-	        android:id="@+id/btnLeft"
+	        android:id="@+id/previous"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center_vertical"
 	        android:layout_weight="1"
+	        android:visibility="invisible"
 			android:text="L" />
 	    
 	    <TextView
@@ -37,27 +38,42 @@
 	        android:text="Graph" />
 	    
 	    <Button 
-	        android:id="@+id/btnRight"
+	        android:id="@+id/next"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center_vertical"
 	        android:layout_weight="1"
+	        android:visibility="invisible"
 	        android:text="R" />
 	</LinearLayout>	
-	
-    <TextView
-	    android:id="@+id/lblMood"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center"
-	    android:text="Felt happy" />
 
 	<TextView
-	    android:id="@+id/lblTimeSlept"
+	    android:id="@+id/textSleepTime"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="27dp"
 	    android:gravity="center"
 	    android:text="10:00 PM - 8:00 AM" />
+	
+	<TextView
+	    android:id="@+id/textAwakeTime"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="27dp"
+	    android:gravity="center"
+	    android:text="10:00 PM - 8:00 AM" />
+	
+	<TextView
+	    android:id="@+id/textMood"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:text="Felt happy" />
 
+	<LinearLayout
+	   android:orientation="vertical"
+	   android:layout_width="fill_parent"
+	   android:layout_height="150dip"
+	   android:id="@+id/graph1" />
+	
 </LinearLayout>

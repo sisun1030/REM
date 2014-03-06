@@ -209,5 +209,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close(); // Closing database connection
 	}	
 	
+	
+	// Getting all data for particular sleep ID
+	public List<Data> getSleepData(int id) {
+		List<Data> contactList = new ArrayList<Data>();
+		// Select All Query
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_DATALOG + " WHERE " + KEY_ID + " = ? ORDER BY "
+				+ TIME + " ASC", new String[] { Integer.toString(id) });
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				Data contact = new Data();
+				contact.setID(Integer.parseInt(cursor.getString(0)));
+				contact.setTime(cursor.getString(1));
+				contact.setAccel(cursor.getString(2));
+				contact.setBpm(cursor.getString(3));
+				contact.setRem(cursor.getString(4));
+				// Adding contact to list
+				contactList.add(contact);
+			} while (cursor.moveToNext());
+		}
+
+		// return contact list
+		return contactList;
+	}
+	
 
 }
