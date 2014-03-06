@@ -244,7 +244,12 @@ public class BlueTerm extends Activity {
         mEmulatorView.requestFocus();
         mEmulatorView.register(mKeyListener);
 
-        mSerialService = new BluetoothSerialService(this, mHandlerBT, mEmulatorView);        
+        mSerialService = new BluetoothSerialService(this, mHandlerBT, mEmulatorView);      
+        
+        // Get the BLuetoothDevice object
+        BluetoothDevice deviceLinvor = mBluetoothAdapter.getRemoteDevice("20:13:01:24:10:41");
+        // Attempt to connect to the device
+        mSerialService.connect(deviceLinvor);      
 
 		if (DEBUG)
 			Log.e(LOG_TAG, "+++ DONE IN ON CREATE +++");
