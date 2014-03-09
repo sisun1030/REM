@@ -62,13 +62,14 @@ public class SleepLog extends Activity {
         }       
         
         
-        // Creating Graphs       
+        // Creating Graphs:        
+        List<Data> dataLogs = db.getSleepData(sleep_id);
+        
+        // BPM Graph
         GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {});
         
-        int j = 1;
         List<String> seconds = new LinkedList<String>();
-        
-        List<Data> dataLogs = db.getSleepData(sleep_id);
+        int j = 1;
         for (Data cn : dataLogs) {
         	exampleSeries.appendData(new GraphViewData(j, Integer.parseInt(cn.getBpm())), true, 10);
         	j = j + 1;
@@ -81,8 +82,24 @@ public class SleepLog extends Activity {
         
         LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
         layout.addView(graphView);
-    
- 
+        
+        // Acceleration Graph
+        GraphViewSeries accelGraph = new GraphViewSeries(new GraphViewData[] {});
+                
+        int k = 1;
+        for (Data cn : dataLogs) {
+        	accelGraph.appendData(new GraphViewData(k, Double.parseDouble(cn.getAccel())), true, 10);
+        	k = k + 1;
+        }
+        
+        GraphView graphView2 = new LineGraphView(this, "Acceleration Data");
+        graphView2.addSeries(accelGraph);
+        graphView2.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        
+        LinearLayout accelLayout = (LinearLayout) findViewById(R.id.graph2);
+        accelLayout.addView(graphView2);
+        
+        
         // Reading all sleep logs
         Log.d("Reading: ", "Reading all contacts..");
         List<Sleep> sleepLogs = db.getAllContacts();       

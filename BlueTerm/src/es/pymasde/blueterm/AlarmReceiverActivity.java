@@ -2,6 +2,7 @@ package es.pymasde.blueterm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import es.pymasde.blueterm.sqlite.DatabaseHandler;
@@ -24,6 +25,9 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 
 public class AlarmReceiverActivity extends Activity {
     private MediaPlayer mMediaPlayer; 
@@ -89,7 +93,12 @@ public class AlarmReceiverActivity extends Activity {
 				
 				Sleep latestLog = db.getLatestSleep();
 				int sleep_id = latestLog.getID();       
-				 
+				
+				int k = 0;
+				List<Double> x = new LinkedList<Double>();
+				List<Double> y = new LinkedList<Double>();
+				List<Double> z = new LinkedList<Double>();
+				
 		        for (String[] cn : sleepData) {
 		        	String times = cn[0];
 		        	String[] array = times.split(" ");
@@ -97,11 +106,27 @@ public class AlarmReceiverActivity extends Activity {
 		        	
 		        	String datas = cn[1];
 		        	String[] array2 = datas.split(",");
-		        	String accel = array2[0];
+		        	String accel = "0";
 		        	String bpm = array2[3];
 		        	String rem = "1";
 		        	
+		        	x.add(Double.parseDouble(array2[0]));
+		        	y.add(Double.parseDouble(array2[1]));
+		        	z.add(Double.parseDouble(array2[2]));
+		        	
+		        	if (k>2){
+		        		double v1 = sqrt(pow((x.get(x.size()-2) - x.get(x.size()-3)),2) +
+		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2) +
+		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2)) * 2;
+		        		double v2 = sqrt(pow((x.get(x.size()-1) - x.get(x.size()-2)),2) +
+		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2) +
+		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2)) * 2;
+		        		double ac = (v2 - v1) * 2;
+		        		accel = String.valueOf(ac);
+		        	}
+		        	
 		        	db.addData(new Data(sleep_id, time, accel, bpm, rem)); 
+		        	k = k + 1;
 		        }
 				
 				System.out.println("User selected they were feeling happy");
@@ -120,7 +145,12 @@ public class AlarmReceiverActivity extends Activity {
 				db.addSleep(new Sleep(sleep_time, awake_time, date,"meh"));
 				
 				Sleep latestLog = db.getLatestSleep();
-				int sleep_id = latestLog.getID();       
+				int sleep_id = latestLog.getID();    
+				
+				int k = 0;
+				List<Double> x = new LinkedList<Double>();
+				List<Double> y = new LinkedList<Double>();
+				List<Double> z = new LinkedList<Double>();
 				 
 		        for (String[] cn : sleepData) {
 		        	String times = cn[0];
@@ -129,11 +159,27 @@ public class AlarmReceiverActivity extends Activity {
 		        	
 		        	String datas = cn[1];
 		        	String[] array2 = datas.split(",");
-		        	String accel = array2[0];
+		        	String accel = "0";
 		        	String bpm = array2[3];
 		        	String rem = "1";
 		        	
-		        	db.addData(new Data(sleep_id, time, accel, bpm, rem)); 
+		        	x.add(Double.parseDouble(array2[0]));
+		        	y.add(Double.parseDouble(array2[1]));
+		        	z.add(Double.parseDouble(array2[2]));
+		        	
+		        	if (k>2){
+		        		double v1 = sqrt(pow((x.get(x.size()-2) - x.get(x.size()-3)),2) +
+		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2) +
+		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2)) * 2;
+		        		double v2 = sqrt(pow((x.get(x.size()-1) - x.get(x.size()-2)),2) +
+		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2) +
+		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2)) * 2;
+		        		double ac = (v2 - v1) * 2;
+		        		accel = String.valueOf(ac);
+		        	}
+		        	
+		        	db.addData(new Data(sleep_id, time, accel, bpm, rem));
+		        	k = k + 1;
 		        }
 		        
 				System.out.println("User selected they were feeling meh");
@@ -152,7 +198,12 @@ public class AlarmReceiverActivity extends Activity {
 				db.addSleep(new Sleep(sleep_time, awake_time, date,"sad"));
 				
 				Sleep latestLog = db.getLatestSleep();
-				int sleep_id = latestLog.getID();       
+				int sleep_id = latestLog.getID(); 
+				
+				int k = 0;
+				List<Double> x = new LinkedList<Double>();
+				List<Double> y = new LinkedList<Double>();
+				List<Double> z = new LinkedList<Double>();
 				 
 		        for (String[] cn : sleepData) {
 		        	String times = cn[0];
@@ -161,11 +212,27 @@ public class AlarmReceiverActivity extends Activity {
 		        	
 		        	String datas = cn[1];
 		        	String[] array2 = datas.split(",");
-		        	String accel = array2[0];
+		        	String accel = "0";
 		        	String bpm = array2[3];
 		        	String rem = "1";
 		        	
+		        	x.add(Double.parseDouble(array2[0]));
+		        	y.add(Double.parseDouble(array2[1]));
+		        	z.add(Double.parseDouble(array2[2]));
+		        	
+		        	if (k>2){
+		        		double v1 = sqrt(pow((x.get(x.size()-2) - x.get(x.size()-3)),2) +
+		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2) +
+		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2)) * 2;
+		        		double v2 = sqrt(pow((x.get(x.size()-1) - x.get(x.size()-2)),2) +
+		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2) +
+		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2)) * 2;
+		        		double ac = (v2 - v1) * 2;
+		        		accel = String.valueOf(ac);
+		        	}
+		        	
 		        	db.addData(new Data(sleep_id, time, accel, bpm, rem)); 
+		        	k = k + 1;
 		        }
 		        
 				System.out.println("User selected they were frowning");
