@@ -80,6 +80,8 @@ public class SleepLog extends Activity {
         graphView.addSeries(exampleSeries);
         graphView.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
         
+        //graphView.setViewPort(2, 10);
+        //graphView.setScrollable(true);        
         LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
         layout.addView(graphView);
         
@@ -96,6 +98,8 @@ public class SleepLog extends Activity {
         graphView2.addSeries(accelGraph);
         graphView2.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
         
+        //graphView2.setViewPort(2, 10);
+        //graphView2.setScrollable(true);
         LinearLayout accelLayout = (LinearLayout) findViewById(R.id.graph2);
         accelLayout.addView(graphView2);
         
