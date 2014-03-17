@@ -7,9 +7,9 @@
     
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="movement">Track Motion</string>
+    <string name="movement">   Track Motion</string>
     <string name="bpm">Track Heartrate</string>
-    <string name="rem_alarm">Smart Alarm</string>
+    <string name="rem_alarm">   Smart Alarm</string>
     <string name="btn_display">Display</string>
     <string name="alarm_hello">The alarm will start in five seconds.</string>
     <string name="stop_alarm">Stop Alarm</string>

@@ -4,45 +4,104 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/wakeup"  >
+    android:background="@drawable/morningbg"  >
 
+	<RelativeLayout
+	    android:id="@+id/feedbackLayout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerInParent="true"
+	    android:layout_marginBottom="20dp"
+	    android:visibility="visible" >
+	    
+	    <TextView
+	        android:id="@+id/lblFeedback"
+	        android:layout_width="210dp"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="20dp"
+	        android:gravity="center_horizontal"
+	        android:text="Good morning, how do you feel?"
+	        android:textColor="@color/black"
+	        />
+	    
+	    <Button
+	        android:id="@+id/smile"
+	        android:layout_width="50dp"
+	        android:layout_height="50dp"
+		    android:background="@drawable/smile"
+		    android:button="@android:color/transparent" 
+		    android:layout_gravity="center_horizontal"
+		    android:layout_below="@+id/lblFeedback"
+		    android:layout_margin="10dp"
+	        />
+	    
+	    <Button
+	        android:id="@+id/neutral"
+	        android:layout_width="50dp"
+	        android:layout_height="50dp"
+		    android:background="@drawable/neutral"
+		    android:button="@android:color/transparent"
+		    android:layout_gravity="center_horizontal"
+		    android:layout_below="@+id/lblFeedback" 
+	        android:layout_toRightOf="@id/smile"
+	        android:layout_margin="10dp"
+	        />
+	    
+	    <Button
+	        android:id="@+id/sad"
+	        android:layout_width="50dp"
+	        android:layout_height="50dp"
+		    android:background="@drawable/sad"
+		    android:button="@android:color/transparent"
+		    android:layout_gravity="center_horizontal" 
+		    android:layout_below="@+id/lblFeedback"
+	        android:layout_toRightOf="@id/neutral"
+	        android:layout_margin="10dp"
+	        />
+	    
+	    <TextView
+	        android:id="@+id/lblSmile"
+	        android:layout_width="50dp"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/smile"
+	        android:gravity="center_horizontal"
+	        android:textColor="@color/black"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:text="Happy" />
+	    
+	    <TextView
+	        android:id="@+id/lblNeutral"
+	        android:layout_width="50dp"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/smile"
+	        android:layout_toRightOf="@+id/lblSmile"
+	        android:gravity="center_horizontal"
+	        android:textColor="@color/black"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:text="Neutral" />
+	    
+	    <TextView
+	        android:id="@+id/lblSad"
+	        android:layout_width="50dp"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/smile"
+	        android:layout_toRightOf="@+id/lblNeutral"
+	        android:gravity="center_horizontal"
+	        android:textColor="@color/black"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:text="Sad" />
+    </RelativeLayout>
+    
     <Button
         android:id="@+id/stopAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/feedbackLayout"
+        android:layout_centerHorizontal="true"
         android:text="@string/stop_alarm"
-        android:layout_gravity="center_horizontal" />
-    
-    <Button
-        android:id="@+id/smile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-	    android:background="@drawable/smile"
-	    android:button="@android:color/transparent" 
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@id/stopAlarm" 
-        android:visibility="invisible"/>
-    
-    <Button
-        android:id="@+id/neutral"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-	    android:background="@drawable/neutral"
-	    android:button="@android:color/transparent" 
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@id/stopAlarm"
-        android:layout_toRightOf="@id/smile" 
-        android:visibility="invisible"/>
-    
-    <Button
-        android:id="@+id/sad"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-	    android:background="@drawable/sad"
-	    android:button="@android:color/transparent" 
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@id/stopAlarm"
-        android:layout_toRightOf="@id/neutral"
         android:visibility="invisible" />
-
+    
 </RelativeLayout>

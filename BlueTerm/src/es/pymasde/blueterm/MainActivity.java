@@ -24,11 +24,14 @@ import android.widget.ImageButton;
 public class MainActivity extends Activity {
  
 	private TextView tvDisplayTime;
-	private TimePicker timePicker1;
+	//private TimePicker timePicker1;
 	private ImageButton btnChangeTime, btnStartAlarm;
 	private CheckBox smartAlarm, heartRate, motion;
-	private int hour, minute, am_pm;
+	private int hour, minute, hour_d, minute_d;
+	private String am_pm, am_pm_d;
 	private String bpm_check, motion_check, smart_check;
+	//temp variable to hold alarm range of 30 mins
+	private int alarmRange = 30;
  
 	static final int TIME_DIALOG_ID = 999;
  
@@ -80,21 +83,40 @@ public class MainActivity extends Activity {
 	public void setCurrentTimeOnView() {
  
 		tvDisplayTime = (TextView) findViewById(R.id.tvTime);
-		timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
+		//timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
  
 		final Calendar c = Calendar.getInstance();
-		hour = c.get(Calendar.HOUR_OF_DAY);
+		final Calendar d = c;
+		hour = c.get(Calendar.HOUR);
 		minute = c.get(Calendar.MINUTE);
-		am_pm = c.get(Calendar.AM_PM);
+		switch (c.get(Calendar.AM_PM)) {
+		case 0:
+			am_pm="AM";
+		case 1:
+			am_pm="PM";
+		}
+		
+		d.add(Calendar.MINUTE, -alarmRange);
+		hour_d = d.get(Calendar.HOUR);
+		minute_d = d.get(Calendar.MINUTE);
+		switch (c.get(Calendar.AM_PM)) {
+		case 0:
+			am_pm_d="AM";
+		case 1:
+			am_pm_d="PM";
+		}
  
 		// set current time into textview
 		tvDisplayTime.setText(
-                    new StringBuilder().append(pad(hour))
-                                       .append(":").append(pad(minute)));
+                    new StringBuilder().append(pad(hour_d)).append(":")
+ 				   					   .append(pad(minute_d)).append(am_pm_d)
+ 				   					   .append(" - ")
+ 				   					   .append(pad(hour)).append(":")
+                    				   .append(pad(minute)).append(am_pm));
  
 		// set current time into timepicker
-		timePicker1.setCurrentHour(hour);
-		timePicker1.setCurrentMinute(minute);
+		//timePicker1.setCurrentHour(hour);
+		//timePicker1.setCurrentMinute(minute);
  
 	}
  
@@ -119,6 +141,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				showDialog(TIME_DIALOG_ID);
+				// TODO Auto-generated method stub
 			}
 		});
 		
@@ -149,7 +172,7 @@ public class MainActivity extends Activity {
 		switch (id) {
 		case TIME_DIALOG_ID:
 			// set time picker as current time
-			return new TimePickerDialog(this, 
+			return new TimePickerDialog(this, 1, 
                                         timePickerListener, hour, minute,false);
  
 		}
@@ -163,14 +186,49 @@ public class MainActivity extends Activity {
 				int selectedMinute) {
 			hour = selectedHour;
 			minute = selectedMinute;
- 
+			
+			//System.out.println("mark" + hour + minute);
+			//pm hours, result is from 12pm to 11pm
+			if (hour >= 12) {
+				am_pm="PM";
+				if (hour > 12)
+					hour = hour - 12;
+			//am hours, result from 12am to 11am
+			} else {
+				am_pm="AM";
+				if (hour == 0)
+					hour = 12;
+			}
+			
+			if (minute < alarmRange) {
+				hour_d = hour - 1;
+				if (hour_d == 11) {
+					if (am_pm=="AM")
+						am_pm_d="PM";
+					else
+						am_pm_d="AM";
+				} else {
+					am_pm_d = am_pm;
+					if (hour_d == 0)
+						hour_d = 12;
+				}
+				minute_d = minute + (60-alarmRange);
+			} else {
+				hour_d = hour;
+				minute_d = minute - alarmRange;
+			}
+			
 			// set current time into textview
-			tvDisplayTime.setText(new StringBuilder().append(pad(hour))
-					.append(":").append(pad(minute)));
+			tvDisplayTime.setText(
+                    new StringBuilder().append(pad(hour_d)).append(":")
+ 				   					   .append(pad(minute_d)).append(am_pm_d)
+ 				   					   .append(" - ")
+ 				   					   .append(pad(hour)).append(":")
+                    				   .append(pad(minute)).append(am_pm));
  
 			// set current time into timepicker
-			timePicker1.setCurrentHour(hour);
-			timePicker1.setCurrentMinute(minute);
+			//timePicker1.setCurrentHour(hour);
+			//timePicker1.setCurrentMinute(minute);
  
 		}
 	};
