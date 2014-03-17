@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import java.util.List;
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
@@ -79,6 +80,8 @@ public class SleepLog extends Activity {
         GraphView remView = new LineGraphView(this, "Sleep Cycles");
         remView.addSeries(remGraph);
         remView.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        ((LineGraphView) remView).setDrawBackground(true);
+        ((LineGraphView) remView).setBackgroundColor(Color.rgb(144,238,144));
         
         //remView.setViewPort(2, 10);
         //remView.setScrollable(true);
@@ -97,6 +100,8 @@ public class SleepLog extends Activity {
         GraphView graphView2 = new LineGraphView(this, "Acceleration Data");
         graphView2.addSeries(accelGraph);
         graphView2.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        ((LineGraphView) graphView2).setDrawBackground(true);
+        ((LineGraphView) graphView2).setBackgroundColor(Color.rgb(255, 187, 85));
         
         //graphView2.setViewPort(2, 10);
         //graphView2.setScrollable(true);
@@ -115,6 +120,8 @@ public class SleepLog extends Activity {
     	GraphView graphView = new LineGraphView(this, "BPM Data");
         graphView.addSeries(exampleSeries);
         graphView.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        ((LineGraphView) graphView).setDrawBackground(true);
+        ((LineGraphView) graphView).setBackgroundColor(Color.rgb(80, 30, 30));
         
         //graphView.setViewPort(2, 10);
         //graphView.setScrollable(true);        
