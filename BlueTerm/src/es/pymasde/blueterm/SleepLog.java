@@ -47,7 +47,7 @@ public class SleepLog extends Activity {
         
         tvDate = (TextView) findViewById(R.id.textDate);
         tvSleepTime = (TextView) findViewById(R.id.textSleepTime);
-        tvAwakeTime = (TextView) findViewById(R.id.textAwakeTime);
+        //tvAwakeTime = (TextView) findViewById(R.id.textAwakeTime);
         tvMood = (TextView) findViewById(R.id.textMood);
         
         tvDate.setText(latestLog.getDate());
@@ -213,7 +213,7 @@ public class SleepLog extends Activity {
 				
 				tvDate = (TextView) findViewById(R.id.textDate);
 		        tvSleepTime = (TextView) findViewById(R.id.textSleepTime);
-		        tvAwakeTime = (TextView) findViewById(R.id.textAwakeTime);
+		        //tvAwakeTime = (TextView) findViewById(R.id.textAwakeTime);
 		        tvMood = (TextView) findViewById(R.id.textMood);
 		        
 		        tvDate.setText(Log.getDate());
@@ -251,7 +251,7 @@ public class SleepLog extends Activity {
 				
 				tvDate = (TextView) findViewById(R.id.textDate);
 		        tvSleepTime = (TextView) findViewById(R.id.textSleepTime);
-		        tvAwakeTime = (TextView) findViewById(R.id.textAwakeTime);
+		        //tvAwakeTime = (TextView) findViewById(R.id.textAwakeTime);
 		        tvMood = (TextView) findViewById(R.id.textMood);
 		        
 		        tvDate.setText(Log.getDate());
