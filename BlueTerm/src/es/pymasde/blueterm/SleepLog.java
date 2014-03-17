@@ -160,6 +160,8 @@ public class SleepLog extends Activity {
         GraphView remView = new LineGraphView(this, "Sleep Cycles");
         remView.addSeries(remGraph);
         remView.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        ((LineGraphView) remView).setDrawBackground(true);
+        ((LineGraphView) remView).setBackgroundColor(Color.rgb(144,238,144));
         
         LinearLayout layout3 = (LinearLayout) findViewById(R.id.rem_graph);
         layout3.removeAllViews();
@@ -179,6 +181,8 @@ public class SleepLog extends Activity {
         GraphView graphView3 = new LineGraphView(this, "Acceleration Data");
         graphView3.addSeries(accelGraph);
         graphView3.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        ((LineGraphView) graphView3).setDrawBackground(true);
+        ((LineGraphView) graphView3).setBackgroundColor(Color.rgb(255, 187, 85));
         
         LinearLayout layout2 = (LinearLayout) findViewById(R.id.xyz_graph);
         layout2.removeAllViews();
@@ -198,6 +202,8 @@ public class SleepLog extends Activity {
     	GraphView graphView2 = new LineGraphView(this, "BPM Data");
         graphView2.addSeries(exampleSeries2);
         graphView2.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        ((LineGraphView) graphView2).setDrawBackground(true);
+        ((LineGraphView) graphView2).setBackgroundColor(Color.rgb(80, 30, 30));
         
         LinearLayout layout = (LinearLayout) findViewById(R.id.bpm_graph);
         layout.removeAllViews();
