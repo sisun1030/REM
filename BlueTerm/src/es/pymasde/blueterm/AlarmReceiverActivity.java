@@ -63,25 +63,7 @@ public class AlarmReceiverActivity extends Activity {
         String date2 = sleepData.get(sleepData.size()-1)[0];
         String [] array2 = date2.split(" ");
         awake_time = array2[1];
-        
-
-        Button stopAlarm = (Button) findViewById(R.id.stopAlarm);
-        stopAlarm.setOnTouchListener(new OnTouchListener() {
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                mMediaPlayer.stop();
-                View b = findViewById(R.id.stopAlarm);
-                b.setVisibility(View.GONE);
-                
-                View smile = findViewById(R.id.smile);
-                smile.setVisibility(View.VISIBLE);
-                View neutral = findViewById(R.id.neutral);
-                neutral.setVisibility(View.VISIBLE);
-                View sad = findViewById(R.id.sad);
-                sad.setVisibility(View.VISIBLE);
-                //finish();
-                return false;
-            }
-        });
+       
         
         //Clicked smiley face bitches:
         Button smile = (Button) findViewById(R.id.smile);
@@ -89,7 +71,7 @@ public class AlarmReceiverActivity extends Activity {
  
 			@Override
 			public void onClick(View v) {
-				
+				mMediaPlayer.stop();
 				db.addSleep(new Sleep(sleep_time, awake_time, date,"happy"));
 				
 				Sleep latestLog = db.getLatestSleep();
@@ -142,7 +124,7 @@ public class AlarmReceiverActivity extends Activity {
  
 			@Override
 			public void onClick(View v) {
-				
+				mMediaPlayer.stop();
 				db.addSleep(new Sleep(sleep_time, awake_time, date,"meh"));
 				
 				Sleep latestLog = db.getLatestSleep();
@@ -195,7 +177,7 @@ public class AlarmReceiverActivity extends Activity {
  
 			@Override
 			public void onClick(View v) {
-				
+				mMediaPlayer.stop();
 				db.addSleep(new Sleep(sleep_time, awake_time, date,"sad"));
 				
 				Sleep latestLog = db.getLatestSleep();

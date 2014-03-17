@@ -219,14 +219,14 @@ public class BlueTerm extends Activity {
         readPrefs();
         
         // Set up the window layout
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.main_bluetooth);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
 
         // Set up the custom title
-        mTitle = (TextView) findViewById(R.id.title_left_text);
-        mTitle.setText(R.string.app_name);
-        mTitle = (TextView) findViewById(R.id.title_right_text);
+        //mTitle = (TextView) findViewById(R.id.title_left_text);
+        //mTitle.setText(R.string.app_name);
+        //mTitle = (TextView) findViewById(R.id.title_right_text);
         
 
         
@@ -396,7 +396,8 @@ public class BlueTerm extends Activity {
     }
     
     public int getTitleHeight() {
-    	return mTitle.getHeight();
+    	//return mTitle.getHeight();
+    	return 0;
     }
     
     // The Handler that gets information back from the BluetoothService
@@ -417,12 +418,12 @@ public class BlueTerm extends Activity {
                 		mMenuItemConnect.setTitle(R.string.disconnect);
                 	}
                 	
-                    mTitle.setText(R.string.title_connected_to);
-                    mTitle.append(mConnectedDeviceName);
+                    //mTitle.setText(R.string.title_connected_to);
+                    //mTitle.append(mConnectedDeviceName);
                     break;
                     
                 case BluetoothSerialService.STATE_CONNECTING:
-                    mTitle.setText(R.string.title_connecting);
+                    //mTitle.setText(R.string.title_connecting);
                     break;
                     
                 case BluetoothSerialService.STATE_LISTEN:
@@ -434,7 +435,7 @@ public class BlueTerm extends Activity {
 
             		//mInputManager.hideSoftInputFromWindow(mEmulatorView.getWindowToken(), 0);
                 	
-                    mTitle.setText(R.string.title_not_connected);
+                    //mTitle.setText(R.string.title_not_connected);
 
                     break;
                 }
