@@ -2,81 +2,109 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:weightSum="8">
+    android:orientation="vertical" >
     
+    <RelativeLayout
+        android:id="@+id/datalogTitleLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+      android:layout_marginBottom="20dp" >
+
+    <Button
+          android:id="@+id/previous"
+          android:background="@drawable/previous"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_centerInParent="true"
+          android:visibility="invisible" />
+      
     <TextView
-	    android:id="@+id/textDate"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center"
-	    android:text="Mar 04 2014" />
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Mar 04 2014"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="8" >
+      <Button 
+          android:id="@+id/next"
+          android:background="@drawable/next"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_centerInParent="true"
+          android:visibility="invisible" />
+  </RelativeLayout> 
 
-		<Button
-	        android:id="@+id/previous"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center_vertical"
-	        android:layout_weight="1"
-	        android:visibility="invisible"
-			android:text="L" />
-	    
-	    <Button 
-	        android:id="@+id/next"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center_vertical"
-	        android:layout_weight="1"
-	        android:visibility="invisible"
-	        android:text="R" />
-	</LinearLayout>	
+    <TableLayout
+        android:id="@+id/datalogTblLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:id="@+id/tblInfoRow1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+            
+            <TextView
+                android:id="@+id/lblSleepTime"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Sleep: "/>
+            
+      <TextView
+          android:id="@+id/textSleepTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="10:00 PM - " />
+      
+      <TextView
+          android:id="@+id/textAwakeTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="8:00 AM" />
+    </TableRow>
+    
+        <TableRow
+            android:id="@+id/tblInfoRow2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+            
+            <TextView
+                android:id="@+id/lblFeedback"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Feedback: "/>
+            
+      <TextView
+          android:id="@+id/textMood"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="happy" />
+    </TableRow>
 
-	<TextView
-	    android:id="@+id/textSleepTime"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginTop="27dp"
-	    android:gravity="center"
-	    android:text="10:00 PM - 8:00 AM" />
-	
-	<TextView
-	    android:id="@+id/textAwakeTime"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginTop="27dp"
-	    android:gravity="center"
-	    android:text="10:00 PM - 8:00 AM" />
-	
-	<TextView
-	    android:id="@+id/textMood"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center"
-	    android:text="Felt happy" />
-	
-	<LinearLayout
-	   android:orientation="vertical"
-	   android:layout_width="fill_parent"
-	   android:layout_height="100dip"
-	   android:id="@+id/rem_graph" />
-	
-	<LinearLayout
-	   android:orientation="vertical"
-	   android:layout_width="fill_parent"
-	   android:layout_height="100dip"
-	   android:id="@+id/graph2" />
-	
-	<LinearLayout
-	   android:orientation="vertical"
-	   android:layout_width="fill_parent"
-	   android:layout_height="100dip"
-	   android:id="@+id/graph1" />
-	
+  </TableLayout>
+  
+  <LinearLayout
+     android:orientation="vertical"
+     android:layout_width="fill_parent"
+     android:layout_height="100dip"
+     android:id="@+id/rem_graph" />
+  
+  <LinearLayout
+     android:orientation="vertical"
+     android:layout_width="fill_parent"
+     android:layout_height="100dip"
+     android:id="@+id/xyz_graph" />
+  
+  <LinearLayout
+     android:orientation="vertical"
+     android:layout_width="fill_parent"
+     android:layout_height="100dip"
+     android:id="@+id/bpm_graph" />
+  
 </LinearLayout>

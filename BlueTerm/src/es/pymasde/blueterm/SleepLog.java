@@ -100,7 +100,7 @@ public class SleepLog extends Activity {
         
         //graphView2.setViewPort(2, 10);
         //graphView2.setScrollable(true);
-        LinearLayout accelLayout = (LinearLayout) findViewById(R.id.graph2);
+        LinearLayout accelLayout = (LinearLayout) findViewById(R.id.xyz_graph);
         accelLayout.addView(graphView2);
         
         // BPM Graph
@@ -118,7 +118,7 @@ public class SleepLog extends Activity {
         
         //graphView.setViewPort(2, 10);
         //graphView.setScrollable(true);        
-        LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.bpm_graph);
         layout.addView(graphView);
         
 
@@ -173,10 +173,10 @@ public class SleepLog extends Activity {
         graphView3.addSeries(accelGraph);
         graphView3.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
         
-        LinearLayout layout2 = (LinearLayout) findViewById(R.id.graph2);
+        LinearLayout layout2 = (LinearLayout) findViewById(R.id.xyz_graph);
         layout2.removeAllViews();
         
-        layout2 = (LinearLayout) findViewById(R.id.graph2);
+        layout2 = (LinearLayout) findViewById(R.id.xyz_graph);
         layout2.addView(graphView3);
         
         // BPM Graph
@@ -192,10 +192,10 @@ public class SleepLog extends Activity {
         graphView2.addSeries(exampleSeries2);
         graphView2.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
         
-        LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.bpm_graph);
         layout.removeAllViews();
         
-        layout = (LinearLayout) findViewById(R.id.graph1);
+        layout = (LinearLayout) findViewById(R.id.bpm_graph);
         layout.addView(graphView2);
         
 	}
