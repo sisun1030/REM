@@ -3,65 +3,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
- 
-    <ImageButton
-        android:id="@+id/btnChangeTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/change_time"
-        android:layout_gravity="center_horizontal" />
-    
-    <TimePicker 
-        android:id="@+id/timePicker1" 
-        android:layout_width="wrap_content" 
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+    android:orientation="vertical"
+    android:background="@drawable/starsbg" >
 
     <TextView
         android:id="@+id/lblTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alarm Set To: "
-        android:textAppearance="?android:attr/textAppearanceLarge" 
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="Alarm currently set to "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_gravity="center_horizontal" />
+    
+    <ImageButton
+        android:id="@+id/btnChangeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/change_time"
+        android:src="@drawable/change_time" />
+
+    <CheckBox
+        android:id="@+id/smartalarm"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:checked="true"
+        android:text="@string/rem_alarm" />
+ 
+    <CheckBox
+        android:id="@+id/motion"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="@string/movement"
+        android:checked="true"
+        android:layout_gravity="center_horizontal" />
+ 
+    <CheckBox
+        android:id="@+id/heartrate"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="@string/bpm" 
         android:layout_gravity="center_horizontal" />
     
     <ImageButton
         android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/start_sleep"
-        android:layout_gravity="center_horizontal" />
-    
-    <CheckBox
-        android:id="@+id/smartalarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rem_alarm"
-        android:checked="true" 
-        android:layout_gravity="center_horizontal"  />
- 
-    <CheckBox
-        android:id="@+id/motion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/movement"
-        android:checked="true" 
-        android:layout_gravity="center_horizontal" />
- 
-    <CheckBox
-        android:id="@+id/heartrate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bpm" 
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/start_sleeping"
+        android:src="@drawable/start_sleeping" />
  
 </LinearLayout>
