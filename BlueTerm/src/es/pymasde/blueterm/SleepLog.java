@@ -64,26 +64,26 @@ public class SleepLog extends Activity {
         
         // Creating Graphs:        
         List<Data> dataLogs = db.getSleepData(sleep_id);
-        
-        // BPM Graph
-        GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {});
-        
         List<String> seconds = new LinkedList<String>();
-        int j = 1;
+        
+        // REM Graph
+        GraphViewSeries remGraph = new GraphViewSeries(new GraphViewData[] {});
+                
+        int m = 1;
         for (Data cn : dataLogs) {
-        	exampleSeries.appendData(new GraphViewData(j, Integer.parseInt(cn.getBpm())), true, 10);
-        	j = j + 1;
+        	remGraph.appendData(new GraphViewData(m, Integer.parseInt(cn.getRem())), true, 10);
+        	m = m + 1;
         	seconds.add(cn.getTime());
         }
         
-    	GraphView graphView = new LineGraphView(this, "BPM Data");
-        graphView.addSeries(exampleSeries);
-        graphView.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        GraphView remView = new LineGraphView(this, "Sleep Cycles");
+        remView.addSeries(remGraph);
+        remView.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
         
-        //graphView.setViewPort(2, 10);
-        //graphView.setScrollable(true);        
-        LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
-        layout.addView(graphView);
+        //remView.setViewPort(2, 10);
+        //remView.setScrollable(true);
+        LinearLayout remLayout = (LinearLayout) findViewById(R.id.rem_graph);
+        remLayout.addView(remView);
         
         // Acceleration Graph
         GraphViewSeries accelGraph = new GraphViewSeries(new GraphViewData[] {});
@@ -103,7 +103,25 @@ public class SleepLog extends Activity {
         LinearLayout accelLayout = (LinearLayout) findViewById(R.id.graph2);
         accelLayout.addView(graphView2);
         
+        // BPM Graph
+        GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {});
         
+        int j = 1;
+        for (Data cn : dataLogs) {
+        	exampleSeries.appendData(new GraphViewData(j, Integer.parseInt(cn.getBpm())), true, 10);
+        	j = j + 1;
+        }
+        
+    	GraphView graphView = new LineGraphView(this, "BPM Data");
+        graphView.addSeries(exampleSeries);
+        graphView.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        
+        //graphView.setViewPort(2, 10);
+        //graphView.setScrollable(true);        
+        LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
+        layout.addView(graphView);
+        
+
         // Reading all sleep logs
         Log.d("Reading: ", "Reading all contacts..");
         List<Sleep> sleepLogs = db.getAllContacts();       
@@ -118,20 +136,56 @@ public class SleepLog extends Activity {
     }
 	
 	public void changeGraphs(){
-		// Creating Graphs               
-        System.out.println(Integer.toString(sleep_id));
-        System.out.println("CHECK POINT");
-
+		// Creating Graphs   
+		List<String> seconds = new LinkedList<String>();
+        List<Data> dataLogs = db.getSleepData(sleep_id);
+        
+        // REM Graph
+        GraphViewSeries remGraph = new GraphViewSeries(new GraphViewData[] {});
+                
+        int m = 1;
+        for (Data cn : dataLogs) {
+        	remGraph.appendData(new GraphViewData(m, Integer.parseInt(cn.getRem())), true, 10);
+        	m = m + 1;
+        	seconds.add(cn.getTime());
+        }
+        
+        GraphView remView = new LineGraphView(this, "Sleep Cycles");
+        remView.addSeries(remGraph);
+        remView.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        
+        LinearLayout layout3 = (LinearLayout) findViewById(R.id.rem_graph);
+        layout3.removeAllViews();
+        
+        layout3 = (LinearLayout) findViewById(R.id.rem_graph);
+        layout3.addView(remView);
+        
+        //Acceleration Graph
+        GraphViewSeries accelGraph = new GraphViewSeries(new GraphViewData[] {});
+        
+        int k = 1;
+        for (Data cn : dataLogs) {
+        	accelGraph.appendData(new GraphViewData(k, Double.parseDouble(cn.getAccel())), true, 10);
+        	k = k + 1;
+        }
+        
+        GraphView graphView3 = new LineGraphView(this, "Acceleration Data");
+        graphView3.addSeries(accelGraph);
+        graphView3.setHorizontalLabels(new String[] {seconds.get(0), seconds.get(seconds.size()-1)});
+        
+        LinearLayout layout2 = (LinearLayout) findViewById(R.id.graph2);
+        layout2.removeAllViews();
+        
+        layout2 = (LinearLayout) findViewById(R.id.graph2);
+        layout2.addView(graphView3);
+        
+        // BPM Graph
         GraphViewSeries exampleSeries2 = new GraphViewSeries(new GraphViewData[] {});
         
         int j = 1;
-        List<String> seconds = new LinkedList<String>();
-        
-        List<Data> dataLogs = db.getSleepData(sleep_id);
         for (Data cn : dataLogs) {
         	exampleSeries2.appendData(new GraphViewData(j, Integer.parseInt(cn.getBpm())), true, 10);
         	j = j + 1;
-        	seconds.add(cn.getTime());
         }
         
     	GraphView graphView2 = new LineGraphView(this, "BPM Data");
@@ -141,8 +195,9 @@ public class SleepLog extends Activity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
         layout.removeAllViews();
         
-        LinearLayout layout2 = (LinearLayout) findViewById(R.id.graph1);
-        layout2.addView(graphView2);
+        layout = (LinearLayout) findViewById(R.id.graph1);
+        layout.addView(graphView2);
+        
 	}
 	
 	public void addListenerOnButton() {

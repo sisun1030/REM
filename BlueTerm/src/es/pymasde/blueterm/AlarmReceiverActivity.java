@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
+import static java.lang.Math.abs;
 
 
 public class AlarmReceiverActivity extends Activity {
@@ -117,11 +118,11 @@ public class AlarmReceiverActivity extends Activity {
 		        	if (k>2){
 		        		double v1 = sqrt(pow((x.get(x.size()-2) - x.get(x.size()-3)),2) +
 		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2) +
-		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2)) * 2;
+		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2)) * 0.5;
 		        		double v2 = sqrt(pow((x.get(x.size()-1) - x.get(x.size()-2)),2) +
 		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2) +
-		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2)) * 2;
-		        		double ac = (v2 - v1) * 2;
+		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2)) * 0.5;
+		        		double ac = abs(v2 - v1) * 0.5;
 		        		accel = String.valueOf(ac);
 		        	}
 		        	
@@ -170,11 +171,11 @@ public class AlarmReceiverActivity extends Activity {
 		        	if (k>2){
 		        		double v1 = sqrt(pow((x.get(x.size()-2) - x.get(x.size()-3)),2) +
 		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2) +
-		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2)) * 2;
+		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2)) * 0.5;
 		        		double v2 = sqrt(pow((x.get(x.size()-1) - x.get(x.size()-2)),2) +
 		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2) +
-		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2)) * 2;
-		        		double ac = (v2 - v1) * 2;
+		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2)) * 0.5;
+		        		double ac = abs(v2 - v1) * 0.5;
 		        		accel = String.valueOf(ac);
 		        	}
 		        	
@@ -223,11 +224,11 @@ public class AlarmReceiverActivity extends Activity {
 		        	if (k>2){
 		        		double v1 = sqrt(pow((x.get(x.size()-2) - x.get(x.size()-3)),2) +
 		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2) +
-		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2)) * 2;
+		        				pow((y.get(y.size()-2) - z.get(z.size()-3)),2)) * 0.5;
 		        		double v2 = sqrt(pow((x.get(x.size()-1) - x.get(x.size()-2)),2) +
 		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2) +
-		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2)) * 2;
-		        		double ac = (v2 - v1) * 2;
+		        				pow((y.get(y.size()-1) - z.get(z.size()-2)),2)) * 0.5;
+		        		double ac = abs(v2 - v1) * 0.5;
 		        		accel = String.valueOf(ac);
 		        	}
 		        	

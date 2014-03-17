@@ -28,15 +28,6 @@
 	        android:visibility="invisible"
 			android:text="L" />
 	    
-	    <TextView
-	        android:id="@+id/lblGraph"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center_vertical"
-	        android:layout_weight="6"
-	        android:gravity="center"
-	        android:text="Graph" />
-	    
 	    <Button 
 	        android:id="@+id/next"
 	        android:layout_width="0dp"
@@ -69,17 +60,23 @@
 	    android:layout_height="wrap_content"
 	    android:gravity="center"
 	    android:text="Felt happy" />
-
-	<LinearLayout
-	   android:orientation="vertical"
-	   android:layout_width="fill_parent"
-	   android:layout_height="150dip"
-	   android:id="@+id/graph1" />
 	
 	<LinearLayout
 	   android:orientation="vertical"
 	   android:layout_width="fill_parent"
-	   android:layout_height="150dip"
+	   android:layout_height="100dip"
+	   android:id="@+id/rem_graph" />
+	
+	<LinearLayout
+	   android:orientation="vertical"
+	   android:layout_width="fill_parent"
+	   android:layout_height="100dip"
 	   android:id="@+id/graph2" />
+	
+	<LinearLayout
+	   android:orientation="vertical"
+	   android:layout_width="fill_parent"
+	   android:layout_height="100dip"
+	   android:id="@+id/graph1" />
 	
 </LinearLayout>
