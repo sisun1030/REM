@@ -10,7 +10,7 @@ public class Setting extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.test_page);
+		setContentView(R.layout.settings);
 	}
 
 

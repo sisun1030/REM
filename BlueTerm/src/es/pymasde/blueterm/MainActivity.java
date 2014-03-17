@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -59,7 +60,7 @@ public class MainActivity extends Activity {
 		
 		switch (item.getItemId()) {
 		case R.id.setting:
-			Toast.makeText(getApplicationContext(), "Setting Page", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), "Setting Page", Toast.LENGTH_SHORT).show();
 			
 			Intent intent = new Intent(context, Setting.class);
             startActivity(intent);
@@ -67,7 +68,7 @@ public class MainActivity extends Activity {
 			return true;
 		
 		case R.id.sleep_log:
-			Toast.makeText(getApplicationContext(), "SleepLog Page", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), "SleepLog Page", Toast.LENGTH_SHORT).show();
 			
 			Intent intent2 = new Intent(context, SleepLog.class);
             startActivity(intent2);
@@ -161,6 +162,16 @@ public class MainActivity extends Activity {
 			    intent.putExtra("bpm", bpm_check);
 			    intent.putExtra("motion", motion_check);
                 startActivity(intent); 
+			}
+		});
+		
+		RelativeLayout btnNavLog = (RelativeLayout) findViewById(R.id.alarmNavRelLog);
+		btnNavLog.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent2 = new Intent(context, SleepLog.class);
+	            startActivity(intent2);
 			}
 		});
  

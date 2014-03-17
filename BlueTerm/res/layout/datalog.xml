@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/nightbg" >
     
     <RelativeLayout
         android:id="@+id/datalogTitleLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="10dp"
-      android:layout_marginBottom="20dp" >
+        android:layout_alignParentTop="true"
+        android:padding="10dp" >
 
-    <Button
-          android:id="@+id/previous"
-          android:background="@drawable/previous"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_centerInParent="true"
-          android:visibility="invisible" />
-      
-    <TextView
-        android:id="@+id/textDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Mar 04 2014"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    <Button
+	          android:id="@+id/previous"
+	          android:background="@drawable/previous"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:layout_alignParentLeft="true"
+	          android:layout_centerInParent="true"
+	          android:visibility="invisible" />
+	      
+	    <TextView
+	        android:id="@+id/textDate"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:text="Mar 04 2014"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
     
       <Button 
           android:id="@+id/next"
@@ -37,17 +38,18 @@
           android:layout_alignParentRight="true"
           android:layout_centerInParent="true"
           android:visibility="invisible" />
-  </RelativeLayout> 
+	</RelativeLayout> 
 
     <TableLayout
         android:id="@+id/datalogTblLayout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/datalogTitleLayout"
+        android:padding="10dp" >
         <TableRow
             android:id="@+id/tblInfoRow1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:layout_height="wrap_content" >
             
             <TextView
                 android:id="@+id/lblSleepTime"
@@ -59,20 +61,13 @@
           android:id="@+id/textSleepTime"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="10:00 PM - " />
-      
-      <TextView
-          android:id="@+id/textAwakeTime"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="8:00 AM" />
+          android:text="10:00 PM - 8:00 AM" />
     </TableRow>
     
         <TableRow
             android:id="@+id/tblInfoRow2"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:layout_height="wrap_content" >
             
             <TextView
                 android:id="@+id/lblFeedback"
@@ -90,21 +85,80 @@
   </TableLayout>
   
   <LinearLayout
+     android:id="@+id/rem_graph"
      android:orientation="vertical"
      android:layout_width="fill_parent"
-     android:layout_height="100dip"
-     android:id="@+id/rem_graph" />
+     android:layout_height="120dp"
+     android:layout_below="@+id/datalogTblLayout"
+     android:padding="10dp"
+     android:background="#19FFFFFF" />
   
   <LinearLayout
+      android:id="@+id/xyz_graph"
      android:orientation="vertical"
      android:layout_width="fill_parent"
-     android:layout_height="100dip"
-     android:id="@+id/xyz_graph" />
+     android:layout_height="120dp"
+     android:layout_below="@+id/rem_graph"
+     android:padding="10dp"
+     android:background="#19FFFFFF" />
   
   <LinearLayout
-     android:orientation="vertical"
-     android:layout_width="fill_parent"
-     android:layout_height="100dip"
-     android:id="@+id/bpm_graph" />
+		android:background="#19FFFFFF"
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="120dp"
+		android:layout_below="@+id/xyz_graph"
+		android:padding="10dp"
+		android:id="@+id/bpm_graph" />
   
-</LinearLayout>
+	<RelativeLayout
+	    android:id="@+id/datalogNav"
+	    android:layout_width="fill_parent"
+	    android:layout_height="40dp"
+	    android:layout_alignParentBottom="true"
+	    android:background="#000000">
+	    
+	    <LinearLayout
+	        android:id="@+id/datalogNavLinear"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="horizontal" 
+	        android:baselineAligned="false" >
+	        
+	        <RelativeLayout
+	            android:id="@+id/datalogNavRelAlarm"
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1" >
+	            
+	            <ImageButton
+	                android:id="@+id/datalogNavAlarm"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerInParent="true"
+	                android:background="@drawable/alarm_icon"
+	                android:src="@drawable/alarm_icon" />
+	                
+	        </RelativeLayout>
+	        
+	        <RelativeLayout
+	            android:id="@+id/datalogNavRelLog"
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1" >
+	            
+	            <ImageButton
+	                android:id="@+id/datalogNavLog"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerInParent="true"
+	                android:background="@drawable/graph_icon_selected"
+	                android:src="@drawable/graph_icon_selected" />
+	                
+	        </RelativeLayout>
+	        
+	    </LinearLayout>
+	    
+	</RelativeLayout>
+  
+</RelativeLayout>

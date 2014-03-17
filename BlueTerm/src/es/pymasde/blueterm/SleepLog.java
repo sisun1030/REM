@@ -15,9 +15,12 @@ import android.widget.LinearLayout;
 import java.util.List;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
 import android.view.View;
@@ -214,6 +217,8 @@ public class SleepLog extends Activity {
 	}
 	
 	public void addListenerOnButton() {
+		
+		final Context context = this;
 	
 		next = (Button)findViewById(R.id.next);
 		next.setOnClickListener(new OnClickListener() {
@@ -290,7 +295,15 @@ public class SleepLog extends Activity {
 			}
 		});
 		
+		RelativeLayout btnNavAlarm = (RelativeLayout) findViewById(R.id.datalogNavRelAlarm);
+		btnNavAlarm.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent2 = new Intent(context, MainActivity.class);
+	            startActivity(intent2);
+			}
+		});	
 	}
-	
 	
 }
