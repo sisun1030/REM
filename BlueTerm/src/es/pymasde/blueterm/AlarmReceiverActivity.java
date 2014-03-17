@@ -91,8 +91,17 @@ public class AlarmReceiverActivity extends Activity {
 		        	String[] array2 = datas.split(",");
 		        	String accel = "0";
 		        	String bpm = array2[3];
-		        	String rem = "1";
 		        	
+		        	//hacked rem cycle for demonstration
+		        	String rem = "0";
+		        	if (k<15){
+		        		rem = "0";
+		        	} else if (15 <= k && k < 18){
+		        		rem = "1";
+		        	} else {
+		        		rem = "0";
+		        	}
+
 		        	x.add(Double.parseDouble(array2[0]));
 		        	y.add(Double.parseDouble(array2[1]));
 		        	z.add(Double.parseDouble(array2[2]));
@@ -144,7 +153,16 @@ public class AlarmReceiverActivity extends Activity {
 		        	String[] array2 = datas.split(",");
 		        	String accel = "0";
 		        	String bpm = array2[3];
-		        	String rem = "1";
+		        	
+		        	//hacked rem cycle for demonstration
+		        	String rem = "0";
+		        	if (k<15){
+		        		rem = "0";
+		        	} else if (15 <= k && k < 18){
+		        		rem = "1";
+		        	} else {
+		        		rem = "0";
+		        	}
 		        	
 		        	x.add(Double.parseDouble(array2[0]));
 		        	y.add(Double.parseDouble(array2[1]));
@@ -197,7 +215,16 @@ public class AlarmReceiverActivity extends Activity {
 		        	String[] array2 = datas.split(",");
 		        	String accel = "0";
 		        	String bpm = array2[3];
-		        	String rem = "1";
+		        	
+		        	//hacked rem cycle for demonstration
+		        	String rem = "0";
+		        	if (k<15){
+		        		rem = "0";
+		        	} else if (15 <= k && k < 18){
+		        		rem = "1";
+		        	} else {
+		        		rem = "0";
+		        	}
 		        	
 		        	x.add(Double.parseDouble(array2[0]));
 		        	y.add(Double.parseDouble(array2[1]));
