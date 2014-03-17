@@ -1,5 +1,9 @@
 package es.pymasde.blueterm;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 import java.io.IOException;
 
 import android.app.Activity;
@@ -46,9 +50,13 @@ import android.widget.Button;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.TimeZone;
 import java.text.ParseException;
 import java.text.DateFormat;
+
+import es.pymasde.blueterm.data.Data;
 
 
 
@@ -149,19 +157,17 @@ public class BlueTerm extends Activity {
     
     static int hour, minute, am_pm;
 
-    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT = 20000;
     private AlarmManager mAlarmManager;
     private Intent mNotificationReceiverIntent;
 	private PendingIntent mNotificationReceiverPendingIntent;
     
 	private static final long INITIAL_ALARM_DELAY = 2 * 60 * 1000L;
 
-    
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		
 		//This is where we call the AlarmManager service to set the alarm:
 		
@@ -455,8 +461,9 @@ public class BlueTerm extends Activity {
                 
                 
                 
-                new Handler().postDelayed(new Runnable() {
-                	
+                
+                //Splash Time goes here:
+                new Handler().postDelayed(new Runnable() {                	
          
                     @Override
                     public void run() {
@@ -476,8 +483,6 @@ public class BlueTerm extends Activity {
                         finish();
                     }
                 }, SPLASH_TIME_OUT);
-                
-                
          
                 break;
             case MESSAGE_TOAST:
@@ -1183,7 +1188,7 @@ class TranscriptScreen implements Screen {
  * terminal. Missing functionality: text attributes (bold, underline, reverse
  * video, color) alternate screen cursor key and keypad escape sequences.
  */
-class TerminalEmulator {
+class TerminalEmulator{
 
     /**
      * The cursor row. Numbered 0..mRows-1.
@@ -1517,6 +1522,7 @@ class TerminalEmulator {
     }
 
     private void process(byte b) {
+    	
         switch (b) {
         case 0: // NUL
             // Do nothing
@@ -1585,8 +1591,13 @@ class TerminalEmulator {
                 	String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentDate);          	
                     String[] tempArray = new String[2];
                     tempArray[0] = dateTime;
-                    tempArray[1] = mDataString;
+                    tempArray[1] = mDataString;                
                 	mDataArray.add(tempArray);
+                	/*
+                	if (mDataArray.size() > 4){
+                		remAlgo(mDataArray);
+                	}
+                	*/
                 	mDataString = "";
                 	int sizeOfArray = mDataArray.size();
                 	System.out.print(mDataArray.get(sizeOfArray-1)[0]);
@@ -1630,6 +1641,46 @@ class TerminalEmulator {
             break;
         }
     }
+    
+    private static void remAlgo(ArrayList<String[]> sleepData) {
+    	
+		List<Double> x = new LinkedList<Double>();
+		List<Double> y = new LinkedList<Double>();
+		List<Double> z = new LinkedList<Double>();
+		    	
+    	for (String[] cn : sleepData) {
+        	String datas = cn[1];
+        	String[] array2 = datas.split(",");
+        	
+        	x.add(Double.parseDouble(array2[0]));
+        	y.add(Double.parseDouble(array2[1]));
+        	z.add(Double.parseDouble(array2[2]));
+        }
+    	
+    	double v4 = sqrt(pow((x.get(x.size()-1) - x.get(x.size()-2)),2) +
+				pow((y.get(y.size()-1) - y.get(y.size()-2)),2) +
+				pow((z.get(z.size()-1) - z.get(z.size()-2)),2)) * 1;
+    	double v3 = sqrt(pow((x.get(x.size()-2) - x.get(x.size()-3)),2) +
+				pow((y.get(y.size()-2) - y.get(y.size()-3)),2) +
+				pow((z.get(z.size()-2) - z.get(z.size()-3)),2)) * 1;
+    	double v2 = sqrt(pow((x.get(x.size()-3) - x.get(x.size()-4)),2) +
+				pow((y.get(y.size()-3) - y.get(y.size()-4)),2) +
+				pow((z.get(z.size()-3) - z.get(z.size()-4)),2)) * 1;
+    	double v1 = sqrt(pow((x.get(x.size()-4) - x.get(x.size()-5)),2) +
+				pow((y.get(y.size()-4) - y.get(y.size()-5)),2) +
+				pow((z.get(z.size()-4) - z.get(z.size()-5)),2)) * 1;
+    	
+    	double ac3 = abs(v4 - v3) * 1;
+    	double ac2 = abs(v3 - v2) * 1;
+    	double ac1 = abs(v2 - v1) * 1;
+    	
+    	double var2 = (ac3-ac2)/ac2;
+    	double var1 = (ac2-ac1)/ac1;
+    	
+    	//if (var2>1) { then go to next activity and pass data
+    	
+    }
+    
 
     private void setAltCharSet(boolean alternateCharSet) {
         mAlternateCharSet = alternateCharSet;
